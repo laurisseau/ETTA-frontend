@@ -18,7 +18,7 @@ const NavComp = () => {
     >
       <Container className="d-flex justify-content-between">
         <div className="d-none d-md-block">
-          <Navbar.Brand href="#home">Icon</Navbar.Brand>
+          <Navbar.Brand href="/">Icon</Navbar.Brand>
         </div>
 
         <div>
@@ -35,7 +35,7 @@ const NavComp = () => {
             </Offcanvas.Header>
             <Offcanvas.Body>
               <Nav className="align-items-center me-auto">
-                <Link className='nav-link' href="#courses" passHref>
+                <Link className="nav-link" href="#courses" passHref>
                   Courses
                 </Link>
                 <NavDropdown title="Community" id="communityDropdown">
@@ -59,10 +59,10 @@ const NavComp = () => {
         </div>
 
         <div className="me-4">
-          <Link href="#Login" className="nav-button-not-active me-1">
+          <Link href="/login" className="nav-button-not-active me-1">
             Log in
           </Link>
-          <Link href="#Signup" className="nav-button-active">
+          <Link href="/signup" className="nav-button-active">
             Sign up
           </Link>
         </div>

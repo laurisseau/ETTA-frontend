@@ -83,11 +83,9 @@ html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
-
-
 }
 
-html{
+html {
   scroll-behavior: smooth;
 }
 
@@ -181,6 +179,15 @@ html{
   background-color: #ff4f5a;
   cursor: pointer;
   text-align: center;
+}
+
+.auth-btns {
+  background-color: #212529 !important;
+  border: none;
+}
+
+.auth-btns:hover {
+  background-color: #ff4f5a !important;
 }
 
 @media screen and (max-width: 1200px) {
