@@ -1,95 +1,256 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+'use client';
+import { Container, Card } from 'react-bootstrap';
+//import dataPoints from '@/public/images/data-points-image.jpg';
+import Carousel from 'react-multi-carousel';
+import 'react-multi-carousel/lib/styles.css';
+import { Editor } from '@monaco-editor/react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faSquareFacebook,
+  faSquareTwitter,
+  faLinkedin,
+  faSquareInstagram,
+} from '@fortawesome/free-brands-svg-icons';
+import { useState } from 'react';
+//import axios from 'axios';
+import Link from 'next/link';
 
 export default function Home() {
+  const [editorValue, setEditorValue] = useState(
+    `word = "hello world"\n\nprint(word)`
+  );
+  const [outputValue, setOutputValue] = useState('hello world');
+
+  const responsive = {
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 3,
+      slidesToSlide: 1, // optional, default to 1.
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 991 },
+      items: 3,
+      slidesToSlide: 1, // optional, default to 1.
+    },
+    mobile: {
+      breakpoint: { max: 991, min: 0 },
+      items: 1,
+      slidesToSlide: 1, // optional, default to 1.
+    },
+  };
+
+  const data = [
+    {
+      id: 1,
+      name: 'Python',
+      subscription: 'Free',
+      description:
+        'Python is an interpreted, high-level, general-purpose programming language. Its design philosophy emphasizes code readability with its notable use of significant whitespace. Its language constructs and object-oriented approach are great for beginners.',
+    },
+    {
+      id: 2,
+      name: 'Cyber security',
+      subscription: 'Free',
+      description:
+        'Cyber security is the practice of protecting internet-connected systems from cyber attacks. These attacks can come from hackers, spammers, and cybercriminals. Cyber security aims to reduce the risk of cyber attacks and protect against unauthorized access to systems, networks, and technologies',
+    },
+    {
+      id: 3,
+      name: 'Robotics',
+      subscription: '???',
+      description:
+        'Robotics is a branch of engineering and computer science that involves the conception, design, manufacture and operation of robots. The objective of the robotics field is to create intelligent machines that can assist humans in a variety of ways',
+    },
+    {
+      id: 3,
+      name: 'Typing',
+      subscription: '???',
+      description:
+        'Typing frees up cognitive energy so you focus on the ideas instead of just the language required to articulate them. Moreover, learning keyboarding improves accuracy and can help with decoding and sight-reading skills for children and adults who struggle with specific learning difficulties.',
+    },
+  ];
+
+  const handleCode = async () => {
+    /*
+    try {
+      const { data } = await axios.post('http://localhost:8080/api/compiler', {
+        code: editorValue,
+      });
+      console.log(data);
+    } catch (err) {
+      console.log(err);
+    }
+    */
+  };
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.js</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <div>
+      <div className="home-test">
+        <Container className="d-flex flex-wrap justify-content-around pb-5 ">
+          <div className="d-flex justify-content-center align-items-center home-header-width p-5">
+            <div>
+              <h1 className="hacker-font" style={{ fontWeight: '700' }}>
+                Empower Students through Technology.
+              </h1>
+              <p className="hacker-font">
+                Join Our Educational Movement to Introduce Coding in Schools.
+              </p>
+              <p className="hacker-font">
+                Equip the next generation with digital skills using our
+                cutting-edge curriculum, adaptable learning solutions, and
+                cost-effective programs. Start their educational journey with
+                us.
+              </p>
+              <button className="home-button">See Prices</button>
+            </div>
+          </div>
+
+          <div className="home-header-img-width">
+            <img
+              style={{ height: '500px', width: '100%' }}
+              alt="data-points"
+              src="https://img.freepik.com/free-vector/data-points-concept-illustration_114360-1715.jpg?w=740&t=st=1700897592~exp=1700898192~hmac=34560987ad6984a47079df8084fe33d73a7e1417a840b4c530620c6058d5f0ef"
+            ></img>
+          </div>
+        </Container>
+      </div>
+      <div style={{ backgroundColor: '#212529' }}>
+        <Container className="d-flex flex-wrap-reverse justify-content-around pt-5 pb-5 mb-4">
+          <div className="d-flex shadow code-box" style={{ height: '400px' }}>
+            <div className="code h-100 w-50">
+              <Editor
+                height="100%"
+                width="100%"
+                theme="vs-dark"
+                defaultLanguage="python"
+                defaultValue={editorValue}
+              />
+            </div>
+            <div
+              style={{ fontFamily: 'Monaco, monospace' }}
+              className="output h-100 w-50 ps-2 pe-2"
+            >
+              {outputValue}
+            </div>
+          </div>
+          <div
+            className="d-flex align-items-center code-box-par ps-3 pe-3 pb-3"
+            style={{ color: 'white' }}
           >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+            <div>
+              <h1 style={{ fontWeight: '700' }} className="mb-3 hacker-font">
+                Dive into Coding Instantly.
+              </h1>{' '}
+              <p className="mb-3 hacker-font">
+                Begin your coding journey within seconds. Experience the thrill
+                of hands-on learning as you start writing real code from your
+                very first lesson.
+              </p>
+              <button className="home-button" onClick={handleCode}>
+                Run
+              </button>
+            </div>
+          </div>
+        </Container>
+      </div>
+      <div id="courses">
+        <Container className="mb-5">
+          <div className="d-flex justify-content-center">
+            <h1
+              className=" text-center mb-5 hacker-font border-bottom border-dark pb-2"
+              style={{ fontWeight: '700', width: '300px' }}
+            >
+              Courses
+            </h1>
+          </div>
+          <Carousel
+            swipeable={true}
+            responsive={responsive}
+            infinite={true}
+            partialVisible={true}
+          >
+            {data ? (
+              data.map((course) => (
+                <div className="d-flex justify-content-center" key={course.id}>
+                  {' '}
+                  <Card style={{ width: '18rem', height: '400px' }}>
+                    <Card.Body className="card-body">
+                      <Card.Title className=" ">{course.name}</Card.Title>
+
+                      <Card.Subtitle className=" text-muted  pt-2 pb-2 border-bottom border-dark">
+                        Subscription: {course.subscription}
+                      </Card.Subtitle>
+
+                      <Card.Text>{course.description}</Card.Text>
+                      <Card.Link className="course-button" href="#">
+                        Start
+                      </Card.Link>
+                    </Card.Body>
+                  </Card>
+                </div>
+              ))
+            ) : (
+              <div></div>
+            )}
+          </Carousel>
+        </Container>
+      </div>
+      <footer
+        style={{ backgroundColor: '#212529', color: 'white', padding: '20px' }}
+      >
+        <div className="">
+          <div>
+            <div className="d-flex justify-content-center">
+              <div className="text-center">
+                <h3>Follow Us</h3>
+                <div
+                  className="d-flex justify-content-between mt-3"
+                  style={{ width: '200px' }}
+                >
+                  <Link href="#" target="_blank" rel="noopener noreferrer">
+                    <FontAwesomeIcon
+                      icon={faSquareFacebook}
+                      size="2x"
+                      color="#ffffff"
+                    />
+                  </Link>
+                  <Link href="#" target="_blank" rel="noopener noreferrer">
+                    <FontAwesomeIcon
+                      icon={faSquareTwitter}
+                      size="2x"
+                      color="#ffffff"
+                    />
+                  </Link>
+                  <Link href="#" target="_blank" rel="noopener noreferrer">
+                    <FontAwesomeIcon
+                      icon={faLinkedin}
+                      size="2x"
+                      color="#ffffff"
+                    />
+                  </Link>
+                  <Link href="#" target="_blank" rel="noopener noreferrer">
+                    <FontAwesomeIcon
+                      icon={faSquareInstagram}
+                      size="2x"
+                      color="#ffffff"
+                    />
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="contact-us mt-3">
+            <div>
+              <h3>Contact Us</h3>
+              <p>Email: info@example.com</p>
+              <p>Phone: +1 123 456 7890</p>
+            </div>
+          </div>
         </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  )
+        <div className="text-center mt-3">
+          <p>&copy; 2023 ETTA. All rights reserved.</p>
+        </div>
+      </footer>
+    </div>
+  );
 }
