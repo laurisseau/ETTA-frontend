@@ -180,6 +180,12 @@ html {
   text-align: center;
 }
 
+.card-header-color{
+  background-color: #FED350;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+}
+
 .auth-btns {
   background-color: #212529 !important;
   border: none;

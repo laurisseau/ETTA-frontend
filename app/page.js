@@ -173,16 +173,17 @@ export default function Home() {
               data.map((course) => (
                 <div className="d-flex justify-content-center" key={course.id}>
                   {' '}
-                  <Card style={{ width: '18rem', height: '400px' }}>
-                    <Card.Body className="card-body">
-                      <Card.Title className=" ">{course.name}</Card.Title>
+                  <Card className='m-0 p-0' style={{ width: '18rem', height: '400px' }}>
+                    <Card.Body className=" m-0 p-0 card-body">
+                      <div className='pe-3 ps-3 pt-3 card-header-color ' >
+                        <Card.Title className=" ">{course.name}</Card.Title>
 
-                      <Card.Subtitle className=" text-muted  pt-2 pb-2 border-bottom border-dark">
-                        Subscription: {course.subscription}
-                      </Card.Subtitle>
-
-                      <Card.Text>{course.description}</Card.Text>
-                      <Card.Link className="course-button" href="#">
+                        <Card.Subtitle className=" text-muted  pt-2 pb-2">
+                          Subscription: {course.subscription}
+                        </Card.Subtitle>
+                      </div>
+                      <Card.Text className=' ps-3 pe-3'>{course.description}</Card.Text>
+                      <Card.Link className="course-button mb-3 ms-3 me-3" href="#">
                         Start
                       </Card.Link>
                     </Card.Body>
