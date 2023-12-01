@@ -3,16 +3,12 @@ import { Button, Form } from 'react-bootstrap';
 import { useContext, useState, useEffect } from 'react';
 import axios from 'axios';
 import Link from 'next/link';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faFacebookF,
-  faGoogle,
-  faTwitter,
-} from '@fortawesome/free-brands-svg-icons';
 
-const login = () => {
+const educatorSignup = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+
   const submitHandler = () => {};
   return (
     <div>
@@ -23,19 +19,7 @@ const login = () => {
         <div style={{ width: '350px' }}>
           <div className="d-flex justify-content-center">
             <div className="">
-              <h5 className="mb-3">Sign in with:</h5>
-              <div className="d-flex justify-content-between mb-3">
-                <Link href="#">
-                  <FontAwesomeIcon icon={faFacebookF} />
-                </Link>
-                <Link href="#">
-                  <FontAwesomeIcon icon={faGoogle} />
-                </Link>
-                <Link href="#">
-                  <FontAwesomeIcon icon={faTwitter} />
-                </Link>
-              </div>
-              <h5 className="text-center mb-3">or:</h5>
+              <h5 className="mb-3">Sign up as an educator</h5>
             </div>
           </div>
           <Form onSubmit={submitHandler}>
@@ -59,13 +43,23 @@ const login = () => {
               />
             </Form.Group>
 
+            <Form.Group className="mb-4" controlId="confirmPassword">
+              <Form.Control
+                type="password"
+                placeholder="Confirm your password"
+                className="address-form-height"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+              />
+            </Form.Group>
+
             <Button type="submit" className="mb-4 w-100 auth-btns" size="lg">
-              Sign in
+              Sign up
             </Button>
 
             <div className="text-center">
               <p>
-                Not a member? <Link href="/signup">Sign up</Link>
+                Already a member? <Link href="/educatorLogin">Login</Link>
               </p>
             </div>
           </Form>
@@ -75,4 +69,4 @@ const login = () => {
   );
 };
 
-export default login;
+export default educatorSignup;

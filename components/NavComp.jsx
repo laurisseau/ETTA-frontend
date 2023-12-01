@@ -40,25 +40,23 @@ const NavComp = () => {
                 </Link>
                 <NavDropdown title="Community" id="communityDropdown">
                   <NavDropdown.Item href="#discord">Discord</NavDropdown.Item>
-                  <NavDropdown.Item href="#donations">
-                    Donations
-                  </NavDropdown.Item>
                 </NavDropdown>
                 <NavDropdown title="Pricing" id="pricingDropdown">
                   <NavDropdown.Item href="#students">Students</NavDropdown.Item>
                   <NavDropdown.Item href="#students">Parents</NavDropdown.Item>
                   <NavDropdown.Item href="#Schools">Schools</NavDropdown.Item>
                 </NavDropdown>
+                <Nav.Link href="#donations">Donations</Nav.Link>
               </Nav>
             </Offcanvas.Body>
           </Navbar.Offcanvas>
         </div>
 
         <div className="me-4">
-          <Link href="/login" className="nav-button-not-active me-1">
+          <Link href="/loginOption" className="nav-button-not-active me-1">
             Log in
           </Link>
-          <Link href="/signup" className="nav-button-active">
+          <Link href="/signupOption" className="nav-button-active">
             Sign up
           </Link>
         </div>

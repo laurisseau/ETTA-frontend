@@ -3,12 +3,6 @@ import { Button, Form } from 'react-bootstrap';
 import { useContext, useState, useEffect } from 'react';
 import axios from 'axios';
 import Link from 'next/link';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faFacebookF,
-  faGoogle,
-  faTwitter,
-} from '@fortawesome/free-brands-svg-icons';
 
 const signup = () => {
   const [username, setUsername] = useState('');
@@ -25,19 +19,7 @@ const signup = () => {
         <div style={{ width: '350px' }}>
           <div className="d-flex justify-content-center">
             <div className="">
-              <h5 className="mb-3">Sign in with:</h5>
-              <div className="d-flex justify-content-between mb-3">
-                <Link href="#">
-                  <FontAwesomeIcon icon={faFacebookF} />
-                </Link>
-                <Link href="#">
-                  <FontAwesomeIcon icon={faGoogle} />
-                </Link>
-                <Link href="#">
-                  <FontAwesomeIcon icon={faTwitter} />
-                </Link>
-              </div>
-              <h5 className="text-center mb-3">or:</h5>
+              <h5 className="mb-3">Sign up as a student</h5>
             </div>
           </div>
           <Form onSubmit={submitHandler}>
@@ -77,7 +59,7 @@ const signup = () => {
 
             <div className="text-center">
               <p>
-                Already a member? <Link href="/login">Login</Link>
+                Already a member? <Link href="/studentLogin">Login</Link>
               </p>
             </div>
           </Form>
