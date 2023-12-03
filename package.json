@@ -1,7 +1,6 @@
 {
   "name": "etta",
   "version": "0.1.0",
-  "proxy": "http://localhost:8080",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -22,6 +21,7 @@
     "react": "^18",
     "react-bootstrap": "^2.9.1",
     "react-dom": "^18",
-    "react-multi-carousel": "^2.8.4"
+    "react-multi-carousel": "^2.8.4",
+    "react-toastify": "^9.1.3"
   }
 }

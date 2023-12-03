@@ -14,6 +14,7 @@ import {
 import { useState } from 'react';
 import axios from 'axios';
 import Link from 'next/link';
+import { toast } from 'react-toastify';
 
 export default function Home() {
   const initialEditorValue = 'word = "hello world"\n\nprint(word)';
@@ -92,6 +93,7 @@ export default function Home() {
       }
     } catch (err) {
       console.log(err);
+      toast.error('Something went wrong with the compiler.');
     }
   };
 

@@ -1,4 +1,17 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {}
+const nextConfig = {
+  async rewrites() {
+    const apiMappings = [
+      { route: '/api/permitAll/compiler' },
+      { route: '/api/auth/user/signup' },
+      { route: '/api/auth/educator/signup' },
+    ];
 
-module.exports = nextConfig
+    return apiMappings.map(({ route }) => ({
+      source: route,
+      destination: `http://localhost:8080${route}`,
+    }));
+  },
+};
+
+module.exports = nextConfig;
