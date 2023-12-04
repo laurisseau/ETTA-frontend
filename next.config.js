@@ -5,6 +5,9 @@ const nextConfig = {
       { route: '/api/permitAll/compiler' },
       { route: '/api/auth/user/signup' },
       { route: '/api/auth/user/login' },
+      { route: '/api/auth/user/forgotPassword' },
+      { route: '/api/auth/user/resetPassword' },
+      { route: '/api/user/updateProfile' },
       { route: '/api/auth/educator/signup' },
     ];
 

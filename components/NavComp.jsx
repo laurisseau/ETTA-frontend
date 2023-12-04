@@ -13,7 +13,7 @@ import Cookies from 'js-cookie';
 
 const NavComp = () => {
   const value = useContext(Context);
-  const authCookie = value;
+  const authCookie = value.role;
 
   const signoutHandler = () => {
     Cookies.remove('user');
@@ -30,7 +30,7 @@ const NavComp = () => {
     >
       <Container className="d-flex justify-content-between">
         <div className="d-none d-md-block">
-          <Navbar.Brand href="/">Icon</Navbar.Brand>
+          <Link href="/">Icon</Link>
         </div>
 
         <div>
@@ -67,7 +67,7 @@ const NavComp = () => {
         <div className="me-4">
           {authCookie ? (
             <>
-              <Link href="/profile" className="nav-button-not-active me-1">
+              <Link href={authCookie == "USER" ? "/studentProfile" : "/educatorProfile"} className="nav-button-not-active me-1">
                 Profile
               </Link>
               <span onClick={signoutHandler} className="nav-button-active">

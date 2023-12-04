@@ -57,7 +57,7 @@ const educatorLogin = () => {
               <p>
                 Not a member? <Link href="/educatorSignup">Sign up</Link>
               </p>
-              <Link href="/forgotPassword">Forgot password?</Link>
+              <Link href="/educatorForgotPassword">Forgot password?</Link>
             </div>
           </Form>
         </div>

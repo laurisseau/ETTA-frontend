@@ -6,18 +6,17 @@ export const Context = createContext();
 
 export function Provider(props) {
   const [value, setValue] = useState('');
-  
+
   useEffect(() => {
     const userCookie = Cookies.get('user');
     const educatorCookie = Cookies.get('educator');
 
     if (userCookie) {
-      setValue(userCookie);
+      setValue(JSON.parse(userCookie));
     } else if (educatorCookie) {
-      setValue(educatorCookie);
+      setValue(JSON.parse(educatorCookie));
     }
-
-  }, [value, setValue]);
+  }, []);
 
   return <Context.Provider value={value}>{props.children}</Context.Provider>;
 }

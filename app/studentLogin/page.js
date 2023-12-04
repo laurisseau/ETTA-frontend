@@ -76,7 +76,7 @@ const login = () => {
               <p>
                 Not a member? <Link href="/studentSignup">Sign up</Link>
               </p>
-              <Link href="/forgotPassword">Forgot password?</Link>
+              <Link href="/studentForgotPassword">Forgot password?</Link>
             </div>
           </Form>
         </div>
