@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import Link from 'next/link';
+import Cookies from 'js-cookie';
 
 const educatorSignup = () => {
   const [username, setUsername] = useState('');
@@ -66,6 +67,13 @@ const educatorSignup = () => {
     upperCaseArrResult,
     lowerCaseArrResult,
   ]);
+
+  const userCookie = Cookies.get('user');
+  const educatorCookie = Cookies.get('educator');
+
+  if (userCookie || educatorCookie) {
+    window.location.href = '/';
+  }
 
   const submitHandler = async (e) => {
     e.preventDefault();

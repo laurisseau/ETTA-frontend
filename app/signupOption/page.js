@@ -2,7 +2,9 @@ import AuthOptions from '@/components/AuthOptions';
 
 const signupOption = () => {
   return (
-    <div><AuthOptions authOption={"Signup"}/></div>
+    <div>
+      <AuthOptions authOption={'Signup'} />
+    </div>
   );
 };
 

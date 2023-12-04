@@ -4,6 +4,7 @@ const nextConfig = {
     const apiMappings = [
       { route: '/api/permitAll/compiler' },
       { route: '/api/auth/user/signup' },
+      { route: '/api/auth/user/login' },
       { route: '/api/auth/educator/signup' },
     ];
 

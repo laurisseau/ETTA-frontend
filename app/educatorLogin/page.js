@@ -3,10 +3,18 @@ import { Button, Form } from 'react-bootstrap';
 import { useContext, useState, useEffect } from 'react';
 import axios from 'axios';
 import Link from 'next/link';
+import Cookies from 'js-cookie';
 
 const educatorLogin = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const userCookie = Cookies.get('user');
+  const educatorCookie = Cookies.get('educator');
+
+  if (userCookie || educatorCookie) {
+    window.location.href = '/';
+  }
+  
   const submitHandler = () => {};
   return (
     <div>

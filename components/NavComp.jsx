@@ -7,8 +7,20 @@ import {
   NavDropdown,
   Offcanvas,
 } from 'react-bootstrap';
+import { Context } from '../app/Provider';
+import { useContext } from 'react';
+import Cookies from 'js-cookie';
 
 const NavComp = () => {
+  const value = useContext(Context);
+  const authCookie = value;
+
+  const signoutHandler = () => {
+    Cookies.remove('user');
+    Cookies.remove('educator');
+    window.location.reload();
+  };
+
   return (
     <Navbar
       bg="dark"
@@ -53,12 +65,25 @@ const NavComp = () => {
         </div>
 
         <div className="me-4">
-          <Link href="/loginOption" className="nav-button-not-active me-1">
-            Log in
-          </Link>
-          <Link href="/signupOption" className="nav-button-active">
-            Sign up
-          </Link>
+          {authCookie ? (
+            <>
+              <Link href="/profile" className="nav-button-not-active me-1">
+                Profile
+              </Link>
+              <span onClick={signoutHandler} className="nav-button-active">
+                Sign out
+              </span>
+            </>
+          ) : (
+            <>
+              <Link href="/loginOption" className="nav-button-not-active me-1">
+                Log in
+              </Link>
+              <Link href="/signupOption" className="nav-button-active">
+                Sign up
+              </Link>
+            </>
+          )}
         </div>
       </Container>
     </Navbar>

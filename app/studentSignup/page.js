@@ -4,12 +4,14 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Link from 'next/link';
 import { toast } from 'react-toastify';
+import Cookies from 'js-cookie';
 
 const signup = () => {
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [signupSuccess, setSignupSuccess] = useState('');
 
   const passwordArr = password.split('');
   const upperCaseArr = password.toUpperCase().split('');
@@ -68,11 +70,17 @@ const signup = () => {
     lowerCaseArrResult,
   ]);
 
+  const userCookie = Cookies.get('user');
+  const educatorCookie = Cookies.get('educator');
+
+  if (userCookie || educatorCookie) {
+    window.location.href = '/';
+  }
+
   const submitHandler = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
       toast.error('Passwords do not match');
-      console.log('Passwords do not match');
       return;
     }
     try {
@@ -82,20 +90,17 @@ const signup = () => {
         password,
       });
       if (data) {
-        setOutputValue(data.output);
+        setSignupSuccess('Verify your email to login.');
       }
     } catch (err) {
-      console.log(err.response.data);
+      //console.log(err.response.data);
       toast.error(err.response.data);
     }
   };
 
   return (
     <div>
-      <div
-        className="d-flex align-items-center justify-content-center"
-        style={{ height: '100vh' }}
-      >
+      <div className="mt-5 d-flex justify-content-center">
         <div style={{ width: '350px' }}>
           <div className="d-flex justify-content-center">
             <div className="">
@@ -159,7 +164,9 @@ const signup = () => {
               <div className={numVerification}>Password must have numbers.</div>
             </div>
 
-            <Button type="submit" className="mb-4 w-100 auth-btns" size="lg">
+            <p className="text-center">{signupSuccess}</p>
+
+            <Button type="submit" className="mb-2 w-100 auth-btns" size="lg">
               Sign up
             </Button>
 
