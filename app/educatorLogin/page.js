@@ -1,12 +1,13 @@
 'use client';
 import { Button, Form } from 'react-bootstrap';
-import { useContext, useState, useEffect } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 import Link from 'next/link';
 import Cookies from 'js-cookie';
+import { toast } from 'react-toastify';
 
 const educatorLogin = () => {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const userCookie = Cookies.get('user');
   const educatorCookie = Cookies.get('educator');
@@ -15,7 +16,26 @@ const educatorLogin = () => {
     window.location.href = '/';
   }
   
-  const submitHandler = () => {};
+  const submitHandler = async(e) => {
+
+    e.preventDefault();
+
+    try {
+      const { data } = await axios.post('/api/auth/educator/login', {
+        username: email,
+        password,
+      });
+      if (data) {
+        window.location.href = '/';
+        Cookies.set('educator', JSON.stringify(data), { expires: 1 / 12  });
+      }
+    } catch (err) {
+      console.log(err.response.data);
+      toast.error(err.response.data);
+    }
+  };
+
+
   return (
     <div>
       <div
@@ -29,13 +49,13 @@ const educatorLogin = () => {
             </div>
           </div>
           <Form onSubmit={submitHandler}>
-            <Form.Group className="mb-4" controlId="username">
+            <Form.Group className="mb-4" controlId="email">
               <Form.Control
-                type="username"
-                placeholder="Enter your username"
+                type="email"
+                placeholder="Enter your email"
                 className="address-form-height"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </Form.Group>
 

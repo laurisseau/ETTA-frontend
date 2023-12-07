@@ -5,14 +5,14 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import Cookies from 'js-cookie';
 
-const studentProfile = () => {
+const educatorProfile = () => {
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [accessToken, setAccessToken] = useState('');
 
   useEffect(() => {
     const getUserInfo = () => {
-      const userInfoString = Cookies.get('user');
+      const userInfoString = Cookies.get('educator');
       if (!userInfoString) {
         window.location.href = '/';
       }
@@ -35,7 +35,7 @@ const studentProfile = () => {
     e.preventDefault();
     try {
       const { data } = await axios.post(
-        '/api/user/updateProfile',
+        '/api/educator/updateProfile',
         {
           email,
           username,
@@ -46,11 +46,11 @@ const studentProfile = () => {
       );
       if (data) {
         const updatedUserInfo = {
-          ...JSON.parse(Cookies.get('user')),
+          ...JSON.parse(Cookies.get('educator')),
           email,
           username,
         };
-        Cookies.set('user', JSON.stringify(updatedUserInfo));
+        Cookies.set('educator', JSON.stringify(updatedUserInfo));
         toast.success('Profile updated');
       }
     } catch (err) {
@@ -65,7 +65,7 @@ const studentProfile = () => {
       style={{ height: '100vh' }}
     >
       <Form style={{ width: '350px' }} onSubmit={updateProfile}>
-        <h1 className="mb-4">Student Profile</h1>
+        <h1 className="mb-4">Educator Profile</h1>
         <Form.Group className="mb-4" controlId="email">
           <Form.Control
             type="email"
@@ -90,4 +90,4 @@ const studentProfile = () => {
   );
 };
 
-export default studentProfile;
+export default educatorProfile;

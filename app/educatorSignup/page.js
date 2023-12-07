@@ -7,6 +7,7 @@ import Link from 'next/link';
 import Cookies from 'js-cookie';
 
 const educatorSignup = () => {
+  const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -89,10 +90,11 @@ const educatorSignup = () => {
         password,
       });
       if (data) {
+        toast.ok('Verify your email to login.');
         setOutputValue(data.output);
       }
     } catch (err) {
-      console.log(err.response.data);
+      //console.log(err);
       toast.error(err.response.data);
     }
   };
@@ -110,6 +112,15 @@ const educatorSignup = () => {
             </div>
           </div>
           <Form onSubmit={submitHandler}>
+            <Form.Group className="mb-4" controlId="email">
+              <Form.Control
+                type="email"
+                placeholder="Enter your email"
+                className="address-form-height"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </Form.Group>
             <Form.Group className="mb-4" controlId="username">
               <Form.Control
                 type="username"

@@ -2,6 +2,7 @@ import { Inter } from 'next/font/google';
 import '@/styles/globals.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-toastify/dist/ReactToastify.css';
+import 'react-multi-carousel/lib/styles.css';
 import { ToastContainer } from 'react-toastify';
 import NavComp from '@/components/NavComp';
 import { Provider } from './Provider';

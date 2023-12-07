@@ -90,7 +90,8 @@ const signup = () => {
         password,
       });
       if (data) {
-        setSignupSuccess('Verify your email to login.');
+        toast.ok('Verify your email to login.');
+        //setSignupSuccess('Verify your email to login.');
       }
     } catch (err) {
       //console.log(err.response.data);

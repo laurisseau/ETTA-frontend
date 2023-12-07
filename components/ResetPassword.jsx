@@ -26,9 +26,21 @@ const ResetPassword = ({ user }) => {
     }
   };
 
-  const resetEducatorPassword = (e) => {
+  const resetEducatorPassword = async (e) => {
     e.preventDefault();
-    console.log('Im an educator');
+    try {
+      const { data } = await axios.post('/api/auth/educator/resetPassword', {
+        email,
+        resetConfirmationCode,
+        resetPassword,
+      });
+      if (data) {
+        toast.success('Password changed');
+      }
+    } catch (err) {
+      //console.log(err.response.data);
+      toast.error(err.response.data);
+    }
   };
 
   return (

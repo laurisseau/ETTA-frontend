@@ -47,7 +47,7 @@ const NavComp = () => {
             </Offcanvas.Header>
             <Offcanvas.Body>
               <Nav className="align-items-center me-auto">
-                <Link className="nav-link" href="#courses" passHref>
+                <Link className="nav-link" href="/courses">
                   Courses
                 </Link>
                 <NavDropdown title="Community" id="communityDropdown">

@@ -21,9 +21,19 @@ const ForgotPassword = ({ user }) => {
     }
   };
 
-  const sendEducatorEmail = (e) => {
+  const sendEducatorEmail = async (e) => {
     e.preventDefault();
-    console.log('Im an educator');
+    try {
+      const { data } = await axios.post('/api/auth/educator/forgotPassword', {
+        email,
+      });
+      if (data) {
+        window.location.href = '/educatorResetPassword';
+      }
+    } catch (err) {
+      //console.log(err.response.data);
+      toast.error(err.response.data);
+    }
   };
 
   return (
