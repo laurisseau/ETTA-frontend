@@ -89,6 +89,12 @@ html {
   scroll-behavior: smooth;
 }
 
+ul {
+  list-style-type: none;
+}
+
+
+
 .output {
   background-color: #1c1c1c;
   color: white;
@@ -180,8 +186,8 @@ html {
   text-align: center;
 }
 
-.card-header-color{
-  background-color: #FED350;
+.card-header-color {
+  background-color: #fed350;
   border-top-right-radius: 5px;
   border-top-left-radius: 5px;
 }
@@ -194,7 +200,6 @@ html {
 .auth-btns:hover {
   background-color: #ff4f5a !important;
 }
-
 
 /* CONTACT */
 
@@ -247,7 +252,7 @@ html {
 
 .contact-input {
   width: 100%;
-  padding: .7rem;
+  padding: 0.7rem;
   border-radius: 0.5rem;
   background: transparent;
   border: 1px solid black;

@@ -54,9 +54,9 @@ const NavComp = () => {
                   <NavDropdown.Item href="#discord">Discord</NavDropdown.Item>
                 </NavDropdown>
                 <NavDropdown title="Pricing" id="pricingDropdown">
-                  <NavDropdown.Item href="#students">Students</NavDropdown.Item>
-                  <NavDropdown.Item href="#students">Parents</NavDropdown.Item>
-                  <NavDropdown.Item href="#Schools">Schools</NavDropdown.Item>
+                  <NavDropdown.Item href="/studentPrices">Students</NavDropdown.Item>
+                  <NavDropdown.Item href="/parentPrices">Parents</NavDropdown.Item>
+                  <NavDropdown.Item href="/schoolPrices">Schools</NavDropdown.Item>
                 </NavDropdown>
                 <Nav.Link href="#donations">Donations</Nav.Link>
               </Nav>
