@@ -35,11 +35,11 @@ const Contact = () => {
       <h2 className="text-center pb-3">Contact Us</h2>
 
       <div className="container contact__container">
-        <div className="contact__options">
-          <article className="contact__option">
+        <div className="contact__options " >
+          <article className="contact__option ">
             {/*<MdOutlineEmail className="contact__option-icon" />*/}
             <h4>Email</h4>
-            <h5>earlytransitiontotech@gmail.com</h5>
+            <h5 className='' >etta@gmail.com</h5>
             <a
               href="mailto:earlytransitiontotech@gmail.com"
               rel="noreferrer"
