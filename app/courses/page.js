@@ -5,11 +5,12 @@ import Carousel from 'react-multi-carousel';
 import { useState, useEffect } from 'react';
 import CenteredModal from '@/components/CenteredModal';
 import Cookies from 'js-cookie';
-import { toast } from 'react-toastify';
+import axios from 'axios';
 
 const courses = () => {
   const [modalShow, setModalShow] = useState(false);
   const [accessToken, setAccessToken] = useState('');
+  const [refreshData, setRefreshData] = useState(false);
 
   const responsive = {
     desktop: {
@@ -62,9 +63,14 @@ const courses = () => {
     },
   ];
 
+  const joinClassSuccess = () => {
+    setRefreshData(true);
+  };
+
   useEffect(() => {
+    const userInfoString = Cookies.get('user');
+
     const getUserInfo = () => {
-      const userInfoString = Cookies.get('user');
       if (userInfoString) {
         try {
           const userInfo = JSON.parse(userInfoString);
@@ -75,8 +81,30 @@ const courses = () => {
       }
     };
 
+    const isEnrolled = async () => {
+      if (userInfoString) {
+        try {
+          const userInfo = JSON.parse(userInfoString);
+
+          const { data } = await axios.get(
+            `/api/user/ifEnrolled/${userInfo.sub}`,
+            {
+              headers: { Authorization: `Bearer ${userInfo.accessToken}` },
+            }
+          );
+
+          if (data) {
+            console.log(data);
+          }
+        } catch (error) {
+          console.error('Error:', error);
+        }
+      }
+    };
+
+    isEnrolled();
     getUserInfo();
-  }, []);
+  }, [refreshData]);
 
   return (
     <div>
@@ -86,6 +114,7 @@ const courses = () => {
             show={modalShow}
             accessToken={accessToken}
             onHide={() => setModalShow(false)}
+            joinClassSuccess={joinClassSuccess}
           />
           <div className="d-flex justify-content-center">
             <h1

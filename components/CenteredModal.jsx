@@ -3,7 +3,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 
-function CenteredModal(props) {
+function CenteredModal({ show, accessToken, onHide, joinClassSuccess }) {
   const [courseId, setCourseId] = useState('');
 
   const joinClass = async (e) => {
@@ -15,26 +15,24 @@ function CenteredModal(props) {
           courseId,
         },
         {
-          headers: { Authorization: `Bearer ${props.accessToken}` },
+          headers: { Authorization: `Bearer ${accessToken}` },
         }
       );
       if (data) {
-        props.onHide();
-        Swal.fire(
-          `You have joined a class click on the course you would like to laern about.`
-        );
+        joinClassSuccess();
+        onHide();
+        Swal.fire(`${data}`);
       }
     } catch (err) {
-      props.onHide();
-      Swal.fire(
-        `Wrong class code.`
-      );
+      onHide();
+      Swal.fire(`${err.response.data}`);
     }
   };
 
   return (
     <Modal
-      {...props}
+      show={show}
+      onHide={onHide}
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
       centered
