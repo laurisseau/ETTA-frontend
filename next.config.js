@@ -8,6 +8,7 @@ const nextConfig = {
       { route: '/api/auth/user/forgotPassword' },
       { route: '/api/auth/user/resetPassword' },
       { route: '/api/user/updateProfile' },
+      { route: '/api/user/joinClass' },
       { route: '/api/auth/educator/signup' },
       { route: '/api/auth/educator/login' },
       { route: '/api/auth/educator/forgotPassword' },

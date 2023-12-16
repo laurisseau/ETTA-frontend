@@ -2,8 +2,15 @@
 import Footer from '@/components/Footer';
 import { Container, Card } from 'react-bootstrap';
 import Carousel from 'react-multi-carousel';
+import { useState, useEffect } from 'react';
+import CenteredModal from '@/components/CenteredModal';
+import Cookies from 'js-cookie';
+import { toast } from 'react-toastify';
 
 const courses = () => {
+  const [modalShow, setModalShow] = useState(false);
+  const [accessToken, setAccessToken] = useState('');
+
   const responsive = {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
@@ -55,10 +62,31 @@ const courses = () => {
     },
   ];
 
+  useEffect(() => {
+    const getUserInfo = () => {
+      const userInfoString = Cookies.get('user');
+      if (userInfoString) {
+        try {
+          const userInfo = JSON.parse(userInfoString);
+          setAccessToken(userInfo.accessToken);
+        } catch (error) {
+          console.error('Error parsing user info JSON:', error);
+        }
+      }
+    };
+
+    getUserInfo();
+  }, []);
+
   return (
     <div>
       <div>
         <Container className="mt-3 mb-5">
+          <CenteredModal
+            show={modalShow}
+            accessToken={accessToken}
+            onHide={() => setModalShow(false)}
+          />
           <div className="d-flex justify-content-center">
             <h1
               className=" text-center mb-5 hacker-font border-bottom border-dark pb-2"
@@ -67,6 +95,7 @@ const courses = () => {
               Courses
             </h1>
           </div>
+
           <Carousel
             swipeable={true}
             responsive={responsive}
@@ -92,12 +121,12 @@ const courses = () => {
                       <Card.Text className=" ps-3 pe-3">
                         {course.description}
                       </Card.Text>
-                      <Card.Link
+                      <button
                         className="course-button mb-3 ms-3 me-3"
-                        href="#"
+                        onClick={() => setModalShow(true)}
                       >
                         Start
-                      </Card.Link>
+                      </button>
                     </Card.Body>
                   </Card>
                 </div>
