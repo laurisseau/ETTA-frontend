@@ -6,11 +6,14 @@ import { useState, useEffect } from 'react';
 import CenteredModal from '@/components/CenteredModal';
 import Cookies from 'js-cookie';
 import axios from 'axios';
+import Swal from 'sweetalert2';
+import Link from 'next/link';
 
 const courses = () => {
   const [modalShow, setModalShow] = useState(false);
   const [accessToken, setAccessToken] = useState('');
   const [refreshData, setRefreshData] = useState(false);
+  const [enrolled, setEnrolled] = useState(null);
 
   const responsive = {
     desktop: {
@@ -36,28 +39,28 @@ const courses = () => {
     {
       id: 1,
       name: 'Python',
-      subscription: 'Free',
+      subscription: 'Basic',
       description:
         'Python, a high-level, interpreted, general-purpose language, prioritizes readable code through significant whitespace. Its object-oriented design and constructs make it ideal for beginners diving into programming.',
     },
     {
       id: 2,
       name: 'Cyber security',
-      subscription: 'Free',
+      subscription: 'Basic',
       description:
         'Cybersecurity is safeguarding internet-connected systems from attacks by hackers, spammers, and cybercriminals. It aims to minimize the risk of cyber attacks and prevent unauthorized access to systems, networks, and technologies.',
     },
     {
       id: 3,
       name: 'Robotics',
-      subscription: '???',
+      subscription: 'Premium',
       description:
         'Robotics blends engineering and computer science, encompassing design, manufacture, and operation of robots. The goal is crafting intelligent machines aiding humans across diverse tasks.',
     },
     {
       id: 3,
       name: 'Basic Typing',
-      subscription: '???',
+      subscription: 'Advanced',
       description:
         'Typing liberates mental energy, allowing focus on ideas over language intricacies. Learning keyboarding enhances accuracy and aids decoding, sight-reading skills, benefiting individuals, both children and adults, facing learning challenges.',
     },
@@ -94,7 +97,7 @@ const courses = () => {
           );
 
           if (data) {
-            console.log(data);
+            setEnrolled(data);
           }
         } catch (error) {
           console.error('Error:', error);
@@ -105,6 +108,72 @@ const courses = () => {
     isEnrolled();
     getUserInfo();
   }, [refreshData]);
+
+  const courseAccess = (userSubscription, courseSubscription, courseSlug) => {
+    let hasAccess = false;
+
+    switch (userSubscription) {
+      case 'Basic':
+        hasAccess = courseSubscription === 'Basic';
+        break;
+
+      case 'Advanced':
+        hasAccess =
+          courseSubscription === 'Basic' || courseSubscription === 'Advanced';
+        break;
+
+      case 'Premium':
+        hasAccess =
+          courseSubscription === 'Basic' ||
+          courseSubscription === 'Advanced' ||
+          courseSubscription === 'Premium';
+        break;
+
+      default:
+        Swal.fire('Your class subscription does not cover this course');
+        return;
+    }
+
+    if (hasAccess) {
+      window.location.href = `/courses/${courseSlug.replace(/ /g, '_')}`;
+    } else {
+      Swal.fire('Your class subscription does not cover this course');
+    }
+  };
+
+  const courseButtons = (course) => {
+    if (Cookies.get('user') == undefined) {
+      return (
+        <Link href="/studentLogin" className="course-button mb-3 ms-3 me-3">
+          Start
+        </Link>
+      );
+    } else if (enrolled == null) {
+      return (
+        <button
+          className="course-button mb-3 ms-3 me-3"
+          onClick={() => setModalShow(true)}
+        >
+          Start
+        </button>
+      );
+    } else if (enrolled != null) {
+      return (
+        <button
+          className="course-button mb-3 ms-3 me-3"
+          onClick={() =>
+            courseAccess(
+              enrolled.course.subscription,
+              course.subscription,
+              course.name
+            )
+          }
+        >
+          Start
+        </button>
+      );
+    }
+  };
 
   return (
     <div>
@@ -150,18 +219,13 @@ const courses = () => {
                       <Card.Text className=" ps-3 pe-3">
                         {course.description}
                       </Card.Text>
-                      <button
-                        className="course-button mb-3 ms-3 me-3"
-                        onClick={() => setModalShow(true)}
-                      >
-                        Start
-                      </button>
+                      {courseButtons(course)}
                     </Card.Body>
                   </Card>
                 </div>
               ))
             ) : (
-              <div></div>
+              <div className="text-center"> Loading... </div>
             )}
           </Carousel>
         </Container>

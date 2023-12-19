@@ -9,10 +9,12 @@ const studentProfile = () => {
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [accessToken, setAccessToken] = useState('');
+  const [userId, setUserId] = useState('');
+  const [enrolled, setEnrolled] = useState(null);
 
   useEffect(() => {
+    const userInfoString = Cookies.get('user');
     const getUserInfo = () => {
-      const userInfoString = Cookies.get('user');
       if (!userInfoString) {
         window.location.href = '/';
       }
@@ -22,14 +24,37 @@ const studentProfile = () => {
           setEmail(userInfo.email);
           setUsername(userInfo.username);
           setAccessToken(userInfo.accessToken);
+          setUserId(userInfo.sub);
         } catch (error) {
           console.error('Error parsing user info JSON:', error);
         }
       }
     };
 
+    const isEnrolled = async () => {
+      if (userInfoString) {
+        try {
+          const userInfo = JSON.parse(userInfoString);
+
+          const { data } = await axios.get(
+            `/api/user/ifEnrolled/${userInfo.sub}`,
+            {
+              headers: { Authorization: `Bearer ${userInfo.accessToken}` },
+            }
+          );
+
+          if (data) {
+            setEnrolled(data);
+          }
+        } catch (error) {
+          console.error('Error:', error);
+        }
+      }
+    };
+
+    isEnrolled();
     getUserInfo();
-  }, []);
+  }, [enrolled]);
 
   const updateProfile = async (e) => {
     e.preventDefault();
@@ -53,6 +78,24 @@ const studentProfile = () => {
         Cookies.set('user', JSON.stringify(updatedUserInfo));
         toast.success('Profile updated');
       }
+    } catch (err) {
+      //console.log(err.response.data);
+      toast.error(err.response.data);
+    }
+  };
+
+  const leaveClass = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.delete(
+        `/api/user/deleteEnrolled/${userId}`,
+
+        {
+          headers: { Authorization: `Bearer ${accessToken}` },
+        }
+      );
+
+      setEnrolled(null);
     } catch (err) {
       //console.log(err.response.data);
       toast.error(err.response.data);
@@ -85,6 +128,17 @@ const studentProfile = () => {
         <Button type="submit" className="mb-4 w-100 auth-btns" size="lg">
           Update profile
         </Button>
+        {enrolled != null ? (
+          <Button
+            onClick={leaveClass}
+            className="mb-4 w-100 auth-btns"
+            size="lg"
+          >
+            Leave class
+          </Button>
+        ) : (
+          <></>
+        )}
       </Form>
     </div>
   );
