@@ -16,6 +16,10 @@ const nextConfig = {
       { route: '/api/auth/educator/forgotPassword' },
       { route: '/api/auth/educator/resetPassword' },
       { route: '/api/educator/updateProfile' },
+      { route: '/api/educator/createCourse' },
+      { route: '/api/educator/getAllEnrolled/:educatorId' },
+      { route: '/api/educator/getCourseByEducatorId/:educatorId' },
+      { route: '/api/educator/deleteCourse/:educatorId' },
     ];
 
     return apiMappings.map(({ route }) => ({

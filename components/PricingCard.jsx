@@ -1,11 +1,34 @@
 'use client';
-import { Card, Container, CardTitle, Row, Col } from 'react-bootstrap';
+import { Card, Row, Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleCheck } from '@fortawesome/free-regular-svg-icons';
+import Cookies from 'js-cookie';
+import axios from 'axios';
 
 const PricingCard = ({ title, price, description, features, height }) => {
-  const createClass = () => {
-    console.log('class created');
+  const userInfoString = Cookies.get('educator');
+  const userInfo = JSON.parse(userInfoString);
+
+  const createClass = async () => {
+    try {
+      const { data } = await axios.post(
+        `/api/educator/createCourse`,
+        {
+          educatorId: userInfo.sub,
+          subscriptionId: title,
+          subscription: title,
+        },
+        {
+          headers: { Authorization: `Bearer ${userInfo.accessToken}` },
+        }
+      );
+
+      if (data) {
+        window.location.href = '/educatorCourse';
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
 
   return (
