@@ -24,7 +24,10 @@ const nextConfig = {
 
     return apiMappings.map(({ route }) => ({
       source: route,
-      destination: `http://localhost:8080${route}`,
+      //localhost
+      //destination: `http://localhost:8080${route}`,
+      //deployed
+      destination: `http://44.202.163.232${route}`,
     }));
   },
 };
