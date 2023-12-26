@@ -2,12 +2,13 @@
 import { Card, Row, Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleCheck } from '@fortawesome/free-regular-svg-icons';
-import Cookies from 'js-cookie';
+import { Context } from '../app/Provider';
+import { useContext } from 'react';
 import axios from 'axios';
 
 const PricingCard = ({ title, price, description, features, height }) => {
-  const userInfoString = Cookies.get('educator');
-  const userInfo = JSON.parse(userInfoString);
+  const value = useContext(Context);
+  const userInfo = value;
 
   const createClass = async () => {
     try {
