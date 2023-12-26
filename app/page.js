@@ -22,7 +22,7 @@ export default function Home() {
 
   const handleCode = async () => {
     try {
-      const { data } = await axios.post('http://44.202.163.232/api/permitAll/compiler', {
+      const { data } = await axios.post('https://44.202.163.232/api/permitAll/compiler', {
         language: 'python3',
         code: formattedCode,
       });
