@@ -1,0 +1,2 @@
+[build.environment]
+  API_BASE_URL = "http://44.202.163.232"

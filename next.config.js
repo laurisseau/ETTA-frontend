@@ -27,7 +27,8 @@ const nextConfig = {
       //localhost
       //destination: `http://localhost:8080${route}`,
       //deployed
-      destination: `http://44.202.163.232${route}`,
+      destination: `${process.env.API_BASE_URL}${route}`,
+      //destination: `http://44.202.163.232${route}`,
     }));
   },
 };
