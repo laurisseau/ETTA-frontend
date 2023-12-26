@@ -1,2 +1,3 @@
-[build.environment]
-  API_BASE_URL = "http://44.202.163.232"
+[[redirects]]
+  from = "https://main--cheerful-gaufre-642d78.netlify.app/api/permitAll/compiler"
+  to = "http://44.202.163.232/api/permitAll/compiler"
