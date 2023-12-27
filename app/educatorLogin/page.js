@@ -21,7 +21,7 @@ const educatorLogin = () => {
     e.preventDefault();
 
     try {
-      const { data } = await axios.post('/api/auth/educator/login', {
+      const { data } = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth/educator/login`, {
         username: email,
         password,
       });

@@ -28,7 +28,7 @@ const educatorCourse = () => {
           const userInfo = JSON.parse(userInfoString);
 
           const { data } = await axios.get(
-            `/api/educator/getCourseByEducatorId/${userInfo.sub}`,
+            `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/educator/getCourseByEducatorId/${userInfo.sub}`,
             {
               headers: { Authorization: `Bearer ${userInfo.accessToken}` },
             }
@@ -48,7 +48,7 @@ const educatorCourse = () => {
           const userInfo = JSON.parse(userInfoString);
 
           const { data } = await axios.get(
-            `/api/educator/getAllEnrolled/${userInfo.sub}`,
+            `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/educator/getAllEnrolled/${userInfo.sub}`,
             {
               headers: { Authorization: `Bearer ${userInfo.accessToken}` },
             }

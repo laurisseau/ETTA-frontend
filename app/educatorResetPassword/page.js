@@ -1,10 +1,10 @@
-import ResetPassword from "@/components/ResetPassword";
+import ResetPassword from '@/components/ResetPassword';
 
 const educatorResetPassword = () => {
   return (
     <div>
       <div>
-        <ResetPassword user="educator"/>
+        <ResetPassword user="educator" />
       </div>
     </div>
   );

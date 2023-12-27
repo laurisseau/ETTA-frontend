@@ -37,7 +37,7 @@ const studentProfile = () => {
           const userInfo = JSON.parse(userInfoString);
 
           const { data } = await axios.get(
-            `/api/user/ifEnrolled/${userInfo.sub}`,
+            `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/user/ifEnrolled/${userInfo.sub}`,
             {
               headers: { Authorization: `Bearer ${userInfo.accessToken}` },
             }
@@ -60,7 +60,7 @@ const studentProfile = () => {
     e.preventDefault();
     try {
       const { data } = await axios.post(
-        '/api/user/updateProfile',
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/user/updateProfile`,
         {
           email,
           username,
@@ -88,7 +88,7 @@ const studentProfile = () => {
     e.preventDefault();
     try {
       await axios.delete(
-        `/api/user/deleteEnrolled/${userId}`,
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/user/deleteEnrolled/${userId}`,
 
         {
           headers: { Authorization: `Bearer ${accessToken}` },

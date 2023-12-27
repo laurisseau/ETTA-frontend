@@ -13,7 +13,7 @@ const PricingCard = ({ title, price, description, features, height }) => {
   const createClass = async () => {
     try {
       const { data } = await axios.post(
-        `/api/educator/createCourse`,
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/educator/createCourse`,
         {
           educatorId: userInfo.sub,
           subscriptionId: title,

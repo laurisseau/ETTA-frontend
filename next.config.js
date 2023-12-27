@@ -1,5 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: 'export',
+  /*
   async rewrites() {
     const apiMappings = [
       { route: '/api/permitAll/compiler' },
@@ -30,6 +32,7 @@ const nextConfig = {
       destination: `http://44.202.163.232${route}`,
     }));
   },
+  */
 };
 
 module.exports = nextConfig;

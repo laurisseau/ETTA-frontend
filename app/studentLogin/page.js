@@ -21,7 +21,7 @@ const login = () => {
     e.preventDefault();
 
     try {
-      const { data } = await axios.post('/api/auth/user/login', {
+      const { data } = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth/user/login`, {
         username: email,
         password,
       });

@@ -12,7 +12,7 @@ const ResetPassword = ({ user }) => {
   const resetStudentPassword = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post('/api/auth/user/resetPassword', {
+      const { data } = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth/user/resetPassword`, {
         email,
         resetConfirmationCode,
         resetPassword,
@@ -29,7 +29,7 @@ const ResetPassword = ({ user }) => {
   const resetEducatorPassword = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post('/api/auth/educator/resetPassword', {
+      const { data } = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth/educator/resetPassword`, {
         email,
         resetConfirmationCode,
         resetPassword,

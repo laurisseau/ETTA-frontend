@@ -90,7 +90,7 @@ const courses = () => {
           const userInfo = JSON.parse(userInfoString);
 
           const { data } = await axios.get(
-            `/api/user/ifEnrolled/${userInfo.sub}`,
+            `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/user/ifEnrolled/${userInfo.sub}`,
             {
               headers: { Authorization: `Bearer ${userInfo.accessToken}` },
             }

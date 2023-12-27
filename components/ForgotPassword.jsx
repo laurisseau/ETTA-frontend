@@ -9,7 +9,7 @@ const ForgotPassword = ({ user }) => {
   const sendStudentEmail = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post('/api/auth/user/forgotPassword', {
+      const { data } = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth/user/forgotPassword`, {
         email,
       });
       if (data) {
@@ -24,7 +24,7 @@ const ForgotPassword = ({ user }) => {
   const sendEducatorEmail = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post('/api/auth/educator/forgotPassword', {
+      const { data } = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth/educator/forgotPassword`, {
         email,
       });
       if (data) {

@@ -47,16 +47,27 @@ const NavComp = () => {
             </Offcanvas.Header>
             <Offcanvas.Body>
               <Nav className="align-items-center me-auto">
-                <Link className="nav-link" href={authCookie == "EDUCATOR" ? "/educatorCourse" : "/courses"}>
+                <Link
+                  className="nav-link"
+                  href={
+                    authCookie == 'EDUCATOR' ? '/educatorCourse' : '/courses'
+                  }
+                >
                   Courses
                 </Link>
                 <NavDropdown title="Community" id="communityDropdown">
                   <NavDropdown.Item href="#discord">Discord</NavDropdown.Item>
                 </NavDropdown>
                 <NavDropdown title="Pricing" id="pricingDropdown">
-                  <NavDropdown.Item href="/studentPrices">Students</NavDropdown.Item>
-                  <NavDropdown.Item href="/parentPrices">Parents</NavDropdown.Item>
-                  <NavDropdown.Item href="/schoolPrices">Schools</NavDropdown.Item>
+                  <NavDropdown.Item href="/studentPrices">
+                    Students
+                  </NavDropdown.Item>
+                  <NavDropdown.Item href="/parentPrices">
+                    Parents
+                  </NavDropdown.Item>
+                  <NavDropdown.Item href="/schoolPrices">
+                    Schools
+                  </NavDropdown.Item>
                 </NavDropdown>
                 <Nav.Link href="#donations">Donations</Nav.Link>
               </Nav>
@@ -67,7 +78,12 @@ const NavComp = () => {
         <div className="me-4">
           {authCookie ? (
             <>
-              <Link href={authCookie == "USER" ? "/studentProfile" : "/educatorProfile"} className="nav-button-not-active me-1">
+              <Link
+                href={
+                  authCookie == 'USER' ? '/studentProfile' : '/educatorProfile'
+                }
+                className="nav-button-not-active me-1"
+              >
                 Profile
               </Link>
               <span onClick={signoutHandler} className="nav-button-active">

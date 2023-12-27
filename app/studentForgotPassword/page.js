@@ -1,10 +1,10 @@
-import ForgotPassword from "@/components/ForgotPassword";
+import ForgotPassword from '@/components/ForgotPassword';
 
 const studentForgotPassword = () => {
   return (
     <div>
       <div>
-        <ForgotPassword user="student"/>
+        <ForgotPassword user="student" />
       </div>
     </div>
   );

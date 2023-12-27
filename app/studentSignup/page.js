@@ -84,7 +84,7 @@ const signup = () => {
       return;
     }
     try {
-      const { data } = await axios.post('/api/auth/user/signup', {
+      const { data } = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth/user/signup`, {
         email,
         username,
         password,

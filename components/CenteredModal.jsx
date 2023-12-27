@@ -10,7 +10,7 @@ function CenteredModal({ show, accessToken, onHide, joinClassSuccess }) {
     e.preventDefault();
     try {
       const { data } = await axios.post(
-        '/api/user/joinClass',
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/user/joinClass`,
         {
           courseId,
         },

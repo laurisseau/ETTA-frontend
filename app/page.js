@@ -12,7 +12,7 @@ export default function Home() {
   const initialEditorValue = 'word = "hello world"\n\nprint(word)';
   const [editorValue, setEditorValue] = useState(initialEditorValue);
   const [outputValue, setOutputValue] = useState('hello world');
-
+  
   const handleEditorChange = (value, event) => {
     setEditorValue(value);
   };
@@ -22,10 +22,13 @@ export default function Home() {
 
   const handleCode = async () => {
     try {
-      const { data } = await axios.post('https://44.202.163.232/api/permitAll/compiler', {
-        language: 'python3',
-        code: formattedCode,
-      });
+      const { data } = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/permitAll/compiler`,
+        {
+          language: 'python3',
+          code: formattedCode,
+        }
+      );
       if (data) {
         setOutputValue(data.output);
       }
@@ -109,7 +112,7 @@ export default function Home() {
           </div>
         </Container>
         <div>
-          <Contact/>
+          <Contact />
         </div>
       </div>
       <Footer />
