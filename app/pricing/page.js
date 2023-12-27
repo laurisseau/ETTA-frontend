@@ -2,7 +2,7 @@ import { Container } from 'react-bootstrap';
 import PricingCard from '@/components/PricingCard';
 import Footer from '@/components/Footer';
 
-const studentPrices = () => {
+const pricing = () => {
   return (
     <div>
       <Container className="mb-5">
@@ -51,4 +51,4 @@ const studentPrices = () => {
   );
 };
 
-export default studentPrices;
+export default pricing;
