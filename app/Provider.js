@@ -10,11 +10,14 @@ export function Provider(props) {
   useEffect(() => {
     const userCookie = Cookies.get('user');
     const educatorCookie = Cookies.get('educator');
+    const adminCookie = Cookies.get('admin');
 
     if (userCookie) {
       setValue(JSON.parse(userCookie));
     } else if (educatorCookie) {
       setValue(JSON.parse(educatorCookie));
+    } else if (adminCookie) {
+      setValue(JSON.parse(adminCookie));
     }
   }, []);
 

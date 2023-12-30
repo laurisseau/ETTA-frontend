@@ -89,11 +89,13 @@ html {
   scroll-behavior: smooth;
 }
 
+.pointer {
+  cursor: pointer;
+}
+
 ul {
   list-style-type: none;
 }
-
-
 
 .output {
   background-color: #1c1c1c;
@@ -258,6 +260,45 @@ ul {
   border: 1px solid black;
   resize: none;
   color: var(--color-white);
+}
+
+/* ====================== */
+
+.bg-gradient-cosmic {
+  background: linear-gradient(
+    to right,
+    rgb(142, 45, 226),
+    rgb(74, 0, 224)
+  ) !important;
+}
+
+.bg-gradient-burning {
+  background: linear-gradient(
+    to right,
+    rgb(255, 65, 108),
+    rgb(255, 75, 43)
+  ) !important;
+}
+
+.bg-gradient-Ohhappiness {
+  background: linear-gradient(
+    to right,
+    rgb(0, 176, 155),
+    rgb(150, 201, 61)
+  ) !important;
+}
+
+.pagination-btn {
+  background: none;
+  color: inherit;
+  border: none;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+}
+
+.pagination-btn-active {
+  border-bottom: 2px solid black;
 }
 
 /* ================ MEDIA QUERIES (MEDIUM DEVICES) ================= */

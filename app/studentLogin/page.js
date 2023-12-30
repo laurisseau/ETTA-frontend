@@ -26,8 +26,9 @@ const login = () => {
         password,
       });
       if (data) {
-        window.location.href = '/';
         Cookies.set('user', JSON.stringify(data), { expires: 1 / 12  });
+        window.location.href = '/';
+        
       }
     } catch (err) {
       //console.log(err.response.data);

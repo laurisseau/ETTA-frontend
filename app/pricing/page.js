@@ -3,6 +3,7 @@ import PricingCard from '@/components/PricingCard';
 import Footer from '@/components/Footer';
 
 const pricing = () => {
+
   return (
     <div>
       <Container className="mb-5">

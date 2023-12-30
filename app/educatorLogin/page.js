@@ -15,26 +15,31 @@ const educatorLogin = () => {
   if (userCookie || educatorCookie) {
     window.location.href = '/';
   }
-  
-  const submitHandler = async(e) => {
 
+  const submitHandler = async (e) => {
     e.preventDefault();
 
     try {
-      const { data } = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth/educator/login`, {
-        username: email,
-        password,
-      });
-      if (data) {
+      const { data } = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth/educator/login`,
+        {
+          username: email,
+          password,
+        }
+      );
+
+      if (data.role == 'EDUCATOR') {
+        Cookies.set('educator', JSON.stringify(data), { expires: 1 / 12 });
         window.location.href = '/';
-        Cookies.set('educator', JSON.stringify(data), { expires: 1 / 12  });
+      } else if (data.role == 'ADMIN') {
+        Cookies.set('admin', JSON.stringify(data), { expires: 1 / 12 });
+        window.location.href = '/adminDashboard';
       }
     } catch (err) {
       console.log(err.response.data);
       toast.error(err.response.data);
     }
   };
-
 
   return (
     <div>
