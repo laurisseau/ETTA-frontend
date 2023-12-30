@@ -16,9 +16,6 @@ const adminCourses = () => {
           <Badge bg="primary" className="p-2 pointer">
             Edit
           </Badge>
-          <Badge bg="danger" className="ms-2 p-2 pointer">
-            Delete
-          </Badge>
         </div>
       );
     }
@@ -39,6 +36,7 @@ const adminCourses = () => {
           data={addEdit(data)}
           rowsPerPage={5}
           tableRows={tableRows}
+          addBar={'/addCourse'}
         />
       </Col>
     </Row>

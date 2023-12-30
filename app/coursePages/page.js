@@ -36,6 +36,7 @@ const coursePages = () => {
           data={addEdit(data)}
           rowsPerPage={10}
           tableRows={tableRows}
+          addBar={"/addPage"}
         />
       </Col>
     </Row>

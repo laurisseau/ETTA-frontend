@@ -262,6 +262,10 @@ ul {
   color: var(--color-white);
 }
 
+.address-textarea-height{
+  height: 125px;
+}
+
 /* ====================== */
 
 .bg-gradient-cosmic {

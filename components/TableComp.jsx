@@ -1,9 +1,14 @@
-"use client"
+'use client';
 import { useState } from 'react';
 import Card from 'react-bootstrap/Card';
 import CenterModal from './CenterModal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {faArrowRight, faArrowLeft} from '@fortawesome/free-solid-svg-icons';
+import {
+  faArrowRight,
+  faArrowLeft,
+  faPlus,
+} from '@fortawesome/free-solid-svg-icons';
+import Link from 'next/link';
 export default function TableComp({
   title,
   tableRows,
@@ -68,7 +73,7 @@ export default function TableComp({
           disabled={currentPage === 1}
           onClick={() => handlePageChange(currentPage - 1)}
         >
-          <FontAwesomeIcon icon={faArrowLeft}  className='me-3'/>
+          <FontAwesomeIcon icon={faArrowLeft} className="me-3" />
         </button>
         {pageNumbers}
         <button
@@ -76,7 +81,7 @@ export default function TableComp({
           disabled={currentPage === totalPages}
           onClick={() => handlePageChange(currentPage + 1)}
         >
-          <FontAwesomeIcon icon={faArrowRight} className='ms-3'/>
+          <FontAwesomeIcon icon={faArrowRight} className="ms-3" />
         </button>
       </div>
     );
@@ -93,7 +98,6 @@ export default function TableComp({
     }
     return tableCells;
   }
-
 
   return (
     <div className="pe-4 mt-3 mb-5">
@@ -135,22 +139,12 @@ export default function TableComp({
             ))}
           </tbody>
         </table>
-        {addBar === 'true' ? (
-          <div>
-            <div
-              className="text-center pt-1 add-hover"
-              onClick={() => setModalShow(true)}
-            >
-              <span className="material-symbols-outlined fs-2">add</span>
+        {addBar ? (
+          <Link href={addBar}>
+            <div className="text-center pt-1 add-hover">
+              <FontAwesomeIcon className="fs-2" icon={faPlus} />
             </div>
-            <CenterModal
-              show={modalShow}
-              modalbutton={modalbutton}
-              tabletitle={tabletitle}
-              onHide={() => setModalShow(false)}
-              createcategory={createcategory}
-            />
-          </div>
+          </Link>
         ) : (
           <div></div>
         )}
