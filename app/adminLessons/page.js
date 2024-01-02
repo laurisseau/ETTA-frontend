@@ -1,20 +1,41 @@
+'use client';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import TableComp from '@/components/TableComp';
 import AdminNavbar from '@/components/AdminNavbar';
 import Badge from 'react-bootstrap/Badge';
+import axios from 'axios';
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
 
-const adminCourses = () => {
-  const tableRows = ['Id', 'Name', 'Subscription', 'Edit'];
+const adminLessons = () => {
+  const tableRows = ['id', 'name', 'language', 'subscription', 'Edit'];
+  const [lessons, setLessons] = useState([]);
 
-  const data = [{ Id: 0, Name: 'Python', Subscription: 'Free' }];
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const { data } = await axios.get(
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/permitAll/lessons`
+        );
+
+        if (data) {
+          setLessons(data);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    getData();
+  }, []);
 
   const addEdit = (data) => {
     for (let j = 0; j < data.length; j++) {
       data[j]['Edit'] = (
         <div key={j}>
           <Badge bg="primary" className="p-2 pointer">
-            Edit
+            <Link href={`/updateLesson/${data[j].id}`}>Edit</Link>
           </Badge>
         </div>
       );
@@ -32,15 +53,15 @@ const adminCourses = () => {
       </Col>
       <Col md={9} sm={8} xs={9} className="">
         <TableComp
-          title={`All Courses`}
-          data={addEdit(data)}
+          title={`All Lessons`}
+          data={addEdit(lessons)}
           rowsPerPage={5}
           tableRows={tableRows}
-          addBar={'/addCourse'}
+          addBar={'/createLesson'}
         />
       </Col>
     </Row>
   );
 };
 
-export default adminCourses;
+export default adminLessons;

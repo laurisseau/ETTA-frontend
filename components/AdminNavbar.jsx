@@ -28,12 +28,12 @@ const NavComp = () => {
       <div className="row">
         <div className="bg-dark min-vh-100 d-flex justify-content-between flex-column ">
           <div>
-            <a
-              href="/"
+            <Link
+              href="/adminDashboard"
               className="text-decoration-none text-white d-flex align-items-center ms-3 mt-2"
             >
               <span className="ms-1 fs-4 d-none d-sm-inline">Brand</span>
-            </a>
+            </Link>
 
             <hr className="text-secondary d-none d-sm-block" />
             <ul className="nav nav-pills flex-column mt-3 mt-sm-0">
@@ -49,21 +49,21 @@ const NavComp = () => {
 
               <li className="nav-item text-white fs-4 my-1 py-2 py-sm-0">
                 <Link
-                  href="/adminCourses"
+                  href="/adminLessons"
                   className="nav-link text-white fs-5 d-flex"
                 >
                   <FontAwesomeIcon icon={faChalkboardUser} />
-                  <span className="ms-3 d-none d-sm-inline">Course</span>
+                  <span className="ms-3 d-none d-sm-inline">Lessons</span>
                 </Link>
               </li>
 
               <li className="nav-item text-white fs-4 my-1 py-2 py-sm-0">
                 <Link
-                  href="/coursePages"
+                  href="/lessonPages"
                   className="nav-link text-white fs-5 d-flex"
                 >
                   <FontAwesomeIcon icon={faFile} />
-                  <span className="ms-3 d-none d-sm-inline">Course Pages</span>
+                  <span className="ms-3 d-none d-sm-inline">Lesson Pages</span>
                 </Link>
               </li>
 
