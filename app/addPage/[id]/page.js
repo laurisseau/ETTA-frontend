@@ -1,6 +1,6 @@
 'use client';
 import { Button, Form } from 'react-bootstrap';
-import { useState } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import AdminNavbar from '@/components/AdminNavbar';
@@ -8,45 +8,84 @@ import { Editor } from '@monaco-editor/react';
 import axios from 'axios';
 import Link from 'next/link';
 import { toast } from 'react-toastify';
-import Cookies from 'js-cookie';
+import { Context } from '@/app/Provider';
 
-const addPage = () => {
-  const [pageNum, setPageNum] = useState(0); // <================= make dynamic
-  const [courseHeader, setCourseHeader] = useState('');
-  const [courseLesson, setCourseLesson] = useState('');
-  const [courseInstructions, setCourseInstructions] = useState('');
+const addPage = ({ params }) => {
+  const [pageNum, setPageNum] = useState(0);
+  const [header, setHeader] = useState('');
+  const [lessonInfo, setLessonInfo] = useState('');
+  const [task, setTask] = useState('');
+  const [editorLanguage, setEditorLanguage] = useState('');
   const [editorValue, setEditorValue] = useState('');
+  const [lessonId, setLessonId] = useState(0);
+  const userInfo = useContext(Context);
+  const id = params.id;
+
   const handleEditorChange = (value, event) => {
     setEditorValue(value);
   };
 
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const { data } = await axios.get(
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/admin/lesson/${id}`,
+          {
+            headers: { Authorization: `Bearer ${userInfo.accessToken}` },
+          }
+        );
+
+        if (data) {
+          setLessonId(data.id);
+          setPageNum(data.numOfPages + 1);
+          setEditorLanguage(data.language);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    getData();
+  }, []);
+
+  const correctManicoLanguage = (editorLanguage) => {
+    const languageMappings = {
+      python3: 'python',
+      nodejs: 'javascript',
+      java: 'java',
+    };
+
+    return languageMappings[editorLanguage] || null;
+  };
+
+
   const submitHandler = async (e) => {
     e.preventDefault();
 
-    console.log(
-      'pageNum',
-      pageNum,
-      'courseHeader',
-      courseHeader,
-      'courseLesson',
-      courseLesson,
-      'courseInstructions',
-      courseInstructions,
-      'editorValue',
-      editorValue
-    );
-
-    /*
-        try {
-          const { data } = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth/user/login`, {
-           
-          });
- 
-        } catch (err) {
-          console.log(err.response.data);
-          //toast.error(err.response.data);
+    try {
+      const { data } = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/admin/addPage`,
+        {
+          pageNum,
+          header,
+          lessonInfo,
+          task,
+          editorLanguage,
+          editorValue,
+          lessonId
+        },
+        {
+          headers: { Authorization: `Bearer ${userInfo.accessToken}` },
         }
-        */
+      );
+
+      if (data) {
+        window.location.href = '/lessonPages';
+      }
+    } catch (err) {
+      console.error(err);
+      toast.error('Something went wrong');
+    }
   };
 
   return (
@@ -67,40 +106,40 @@ const addPage = () => {
             </div>
 
             <Form onSubmit={submitHandler}>
-              <Form.Group className="mb-4" controlId="courseHeader">
+              <Form.Group className="mb-4" controlId="PageNum">
                 <Form.Control
-                  placeholder="Enter the header for this page"
+                  placeholder="Enter the page number"
                   className="address-form-height"
                   value={pageNum}
                   onChange={(e) => setPageNum(e.target.value)}
                 />
               </Form.Group>
 
-              <Form.Group className="mb-4" controlId="courseHeader">
+              <Form.Group className="mb-4" controlId="header">
                 <Form.Control
                   placeholder="Enter the header for this page"
                   className="address-form-height"
-                  value={courseHeader}
-                  onChange={(e) => setCourseHeader(e.target.value)}
+                  value={header}
+                  onChange={(e) => setHeader(e.target.value)}
                 />
               </Form.Group>
 
-              <Form.Group className="mb-4" controlId="courseLesson">
+              <Form.Group className="mb-4" controlId="lessonInfo">
                 <Form.Control
                   as="textarea"
                   placeholder="Enter the lesson for this page"
-                  value={courseLesson}
-                  onChange={(e) => setCourseLesson(e.target.value)}
+                  value={lessonInfo}
+                  onChange={(e) => setLessonInfo(e.target.value)}
                   style={{ height: '300px' }}
                 />
               </Form.Group>
 
-              <Form.Group className="mb-4" controlId="courseLesson">
+              <Form.Group className="mb-4" controlId="task">
                 <Form.Control
                   as="textarea"
                   placeholder="Enter the task you want the student to do."
-                  value={courseInstructions}
-                  onChange={(e) => setCourseInstructions(e.target.value)}
+                  value={task}
+                  onChange={(e) => setTask(e.target.value)}
                   style={{ height: '200px' }}
                 />
               </Form.Group>
@@ -114,7 +153,7 @@ const addPage = () => {
                   height="100%"
                   width="100%"
                   theme="vs-dark"
-                  defaultLanguage="python" // make this dynamic <<-------------------------------------
+                  defaultLanguage={correctManicoLanguage(editorLanguage)}
                   defaultValue={editorValue}
                   onChange={handleEditorChange}
                 />

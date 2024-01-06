@@ -42,7 +42,7 @@ const createLesson = () => {
       }
     } catch (err) {
       //console.error(err);
-      toast.error('Something went wrong')
+      toast.error('Something went wrong');
     }
   };
 
@@ -99,12 +99,14 @@ const createLesson = () => {
                 <Form.Select
                   aria-label="Default select example"
                   value={language}
-                  onChange={(e) => setLanguage(e.target.value)}
+                  onChange={(e) => {
+                    setLanguage(e.target.value);
+                  }}
                 >
                   <option>Select the lessons language</option>
-                  <option value="Python">Python</option>
-                  <option value="Javascript">Javascript</option>
-                  <option value="Java">Java</option>
+                  <option value="python3">python3</option>
+                  <option value="nodejs">nodejs</option>
+                  <option value="java">java</option>
                 </Form.Select>
               </Form.Group>
 

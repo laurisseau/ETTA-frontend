@@ -23,7 +23,7 @@ const updateLesson = ({ params }) => {
     const getData = async () => {
       try {
         const { data } = await axios.get(
-          `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/permitAll/lesson/${id}`
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/admin/lesson/${id}`
         );
 
         if (data) {
@@ -145,9 +145,9 @@ const updateLesson = ({ params }) => {
                   onChange={(e) => setLanguage(e.target.value)}
                 >
                   <option>Select the lessons language</option>
-                  <option value="Python">Python</option>
-                  <option value="Javascript">Javascript</option>
-                  <option value="Java">Java</option>
+                  <option value="python3">python3</option>
+                  <option value="nodejs">nodejs</option>
+                  <option value="java">java</option>
                 </Form.Select>
               </Form.Group>
 
