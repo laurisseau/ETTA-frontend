@@ -114,7 +114,7 @@ const addPage = () => {
                   height="100%"
                   width="100%"
                   theme="vs-dark"
-                  defaultLanguage="python" // make this dynamic <<--------------------------------------
+                  defaultLanguage="python" // make this dynamic <<-------------------------------------
                   defaultValue={editorValue}
                   onChange={handleEditorChange}
                 />
