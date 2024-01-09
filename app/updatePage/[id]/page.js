@@ -10,7 +10,7 @@ import Link from 'next/link';
 import { toast } from 'react-toastify';
 import { Context } from '@/app/Provider';
 
-const addPage = ({ params }) => {
+const updatePage = ({ params }) => {
   const [pageNum, setPageNum] = useState(0);
   const [header, setHeader] = useState('');
   const [lessonInfo, setLessonInfo] = useState('');
@@ -26,26 +26,31 @@ const addPage = ({ params }) => {
   };
 
   useEffect(() => {
-    const getData = async () => {
+    const getPageData = async () => {
       try {
         const { data } = await axios.get(
-          `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/admin/lesson/${id}`,
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/admin/lessonPage/${id}`,
           {
             headers: { Authorization: `Bearer ${userInfo.accessToken}` },
           }
         );
 
         if (data) {
-          setLessonId(data.id);
-          setPageNum(data.numOfPages + 1);
-          setEditorLanguage(data.language);
+          console.log(data);
+          setPageNum(data.pageNum);
+          setHeader(data.header);
+          setLessonInfo(data.lessonInfo);
+          setTask(data.task);
+          setEditorValue(data.editorValue);
+          setEditorLanguage(data.editorLanguage);
+          setLessonId(data.lessonId);
         }
       } catch (error) {
         console.error(error);
       }
     };
 
-    getData();
+    getPageData();
   }, []);
 
   const correctManicoLanguage = (editorLanguage) => {
@@ -58,21 +63,18 @@ const addPage = ({ params }) => {
     return languageMappings[editorLanguage] || null;
   };
 
-
   const submitHandler = async (e) => {
     e.preventDefault();
-
+    console.log(pageNum, header, lessonInfo, task, editorValue, id);
     try {
-      const { data } = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/admin/addPage`,
+      const { data } = await axios.put(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/admin/lessonPage/${id}`,
         {
           pageNum,
           header,
           lessonInfo,
           task,
-          editorLanguage,
           editorValue,
-          lessonId
         },
         {
           headers: { Authorization: `Bearer ${userInfo.accessToken}` },
@@ -80,7 +82,7 @@ const addPage = ({ params }) => {
       );
 
       if (data) {
-        window.location.href = '/lessonPages';
+       window.location.href = `/allLessonPages/${lessonId}`;
       }
     } catch (err) {
       console.error(err.response.data);
@@ -160,7 +162,7 @@ const addPage = ({ params }) => {
               </div>
 
               <Button type="submit" className="mb-4 w-100 auth-btns" size="lg">
-                Add page
+                Update page
               </Button>
             </Form>
           </div>
@@ -170,4 +172,4 @@ const addPage = ({ params }) => {
   );
 };
 
-export default addPage;
+export default updatePage;

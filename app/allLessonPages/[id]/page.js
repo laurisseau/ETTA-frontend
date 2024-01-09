@@ -42,7 +42,7 @@ const allLessonPages = ({params}) => {
       data[j]['Edit'] = (
         <div key={j}>
           <Badge bg="primary" className="p-2 pointer">
-            <Link href="/updatePage">Edit</Link>
+            <Link href={`/updatePage/${data[j].id}`}>Edit</Link>
           </Badge>
         </div>
       );
