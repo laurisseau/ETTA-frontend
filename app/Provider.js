@@ -1,6 +1,7 @@
 'use client';
 import { createContext, useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
+import isCookieExpired from './isCookieExpired';
 
 export const Context = createContext();
 
@@ -18,6 +19,7 @@ export function Provider(props) {
       setValue(JSON.parse(educatorCookie));
     } else if (adminCookie) {
       setValue(JSON.parse(adminCookie));
+      isCookieExpired(adminCookie);
     }
   }, []);
 

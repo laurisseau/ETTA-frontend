@@ -28,11 +28,18 @@ const educatorLogin = () => {
         }
       );
 
+      const expirationTime = 5; // in minutes
+      const expirationDate = new Date();
+      expirationDate.setTime(
+        expirationDate.getTime() + expirationTime * 60 * 1000
+      ); // convert minutes to milliseconds
+
       if (data.role == 'EDUCATOR') {
         Cookies.set('educator', JSON.stringify(data), { expires: 1 / 12 });
         window.location.href = '/';
       } else if (data.role == 'ADMIN') {
-        Cookies.set('admin', JSON.stringify(data), { expires: 1 / 12 });
+        data['expirationDate'] = expirationDate;
+        Cookies.set('admin', JSON.stringify(data));
         window.location.href = '/adminDashboard';
       }
     } catch (err) {

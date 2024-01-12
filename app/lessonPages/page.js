@@ -5,7 +5,7 @@ import TableComp from '@/components/TableComp';
 import AdminNavbar from '@/components/AdminNavbar';
 import Badge from 'react-bootstrap/Badge';
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
+import { useState, useEffect} from 'react';
 import axios from 'axios';
 
 const lessonPages = () => {
