@@ -19,9 +19,13 @@ export function Provider(props) {
       setValue(JSON.parse(educatorCookie));
     } else if (adminCookie) {
       setValue(JSON.parse(adminCookie));
-      isCookieExpired(adminCookie);
     }
   }, []);
 
-  return <Context.Provider value={value}>{props.children}</Context.Provider>;
+  return (
+    <Context.Provider value={value}>
+      {props.children}
+      {isCookieExpired(value)}
+    </Context.Provider>
+  );
 }
