@@ -34,11 +34,12 @@ const educatorLogin = () => {
         expirationDate.getTime() + expirationTime * 60 * 1000
       ); // convert minutes to milliseconds
 
+      data['expirationDate'] = expirationDate;
+
       if (data.role == 'EDUCATOR') {
-        Cookies.set('educator', JSON.stringify(data), { expires: 1 / 12 });
+        Cookies.set('educator', JSON.stringify(data));
         window.location.href = '/';
       } else if (data.role == 'ADMIN') {
-        data['expirationDate'] = expirationDate;
         Cookies.set('admin', JSON.stringify(data));
         window.location.href = '/adminDashboard';
       }

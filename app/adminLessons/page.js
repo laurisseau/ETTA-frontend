@@ -34,8 +34,13 @@ const adminLessons = () => {
     for (let j = 0; j < data.length; j++) {
       data[j]['Edit'] = (
         <div key={j}>
-          <Badge bg="primary" className="p-2 pointer">
-            <Link href={`/updateLesson/${data[j].id}`}>Edit</Link>
+          <Badge
+            bg="primary"
+            as={Link}
+            href={`/updateLesson/${data[j].id}`}
+            className="p-2 pointer"
+          >
+            Edit
           </Badge>
         </div>
       );

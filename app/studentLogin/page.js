@@ -13,22 +13,31 @@ const login = () => {
   const userCookie = Cookies.get('user');
   const educatorCookie = Cookies.get('educator');
 
-  if(userCookie || educatorCookie){
-    window.location.href = "/";
+  if (userCookie || educatorCookie) {
+    window.location.href = '/';
   }
 
   const submitHandler = async (e) => {
     e.preventDefault();
 
     try {
-      const { data } = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth/user/login`, {
-        username: email,
-        password,
-      });
+      const { data } = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth/user/login`,
+        {
+          username: email,
+          password,
+        }
+      );
       if (data) {
-        Cookies.set('user', JSON.stringify(data), { expires: 1 / 12  });
+        const expirationTime = 5; // in minutes
+        const expirationDate = new Date();
+        expirationDate.setTime(
+          expirationDate.getTime() + expirationTime * 60 * 1000
+        ); // convert minutes to milliseconds
+
+        data['expirationDate'] = expirationDate;
+        Cookies.set('user', JSON.stringify(data), { expires: 1 / 12 });
         window.location.href = '/';
-        
       }
     } catch (err) {
       //console.log(err.response.data);

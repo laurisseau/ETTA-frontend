@@ -9,7 +9,7 @@ import { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { Context } from '@/app/Provider';
 
-const allLessonPages = ({params}) => {
+const allLessonPages = ({ params }) => {
   const tableRows = ['id', 'pageNum', 'editorLanguage', 'lessonId', 'Edit'];
 
   const [pages, setPages] = useState([]);
@@ -41,8 +41,13 @@ const allLessonPages = ({params}) => {
     for (let j = 0; j < data.length; j++) {
       data[j]['Edit'] = (
         <div key={j}>
-          <Badge bg="primary" className="p-2 pointer">
-            <Link href={`/updatePage/${data[j].id}`}>Edit</Link>
+          <Badge
+            bg="primary"
+            as={Link}
+            href={`/updatePage/${data[j].id}`}
+            className="p-2 pointer"
+          >
+            Edit
           </Badge>
         </div>
       );

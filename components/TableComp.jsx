@@ -1,7 +1,6 @@
 'use client';
 import { useState } from 'react';
 import Card from 'react-bootstrap/Card';
-import CenterModal from './CenterModal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faArrowRight,

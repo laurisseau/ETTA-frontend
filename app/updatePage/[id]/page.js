@@ -82,11 +82,31 @@ const updatePage = ({ params }) => {
       );
 
       if (data) {
-       window.location.href = `/allLessonPages/${lessonId}`;
+        window.location.href = `/allLessonPages/${lessonId}`;
       }
     } catch (err) {
       console.error(err.response.data);
       toast.error(err.response.data);
+    }
+  };
+
+  const deleteHandler = async (e) => {
+    e.preventDefault();
+
+    try {
+      const { data } = await axios.delete(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/admin/deletePage/${id}`,
+        {
+          headers: { Authorization: `Bearer ${userInfo.accessToken}` },
+        }
+      );
+
+      if (data) {
+        window.location.href = '/lessonPages';
+      }
+    } catch (err) {
+      console.error(err);
+      toast.error('Something went wrong');
     }
   };
 
@@ -161,9 +181,19 @@ const updatePage = ({ params }) => {
                 />
               </div>
 
-              <Button type="submit" className="mb-4 w-100 auth-btns" size="lg">
-                Update page
-              </Button>
+              <div className="d-flex justify-content-between flex-wrap">
+                <Button type="submit" className="mb-4 auth-btns" size="lg">
+                  Update page
+                </Button>
+
+                <Button
+                  onClick={deleteHandler}
+                  className="mb-4 auth-btns"
+                  size="lg"
+                >
+                  Delete
+                </Button>
+              </div>
             </Form>
           </div>
         </div>

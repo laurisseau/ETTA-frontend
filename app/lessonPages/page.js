@@ -5,7 +5,7 @@ import TableComp from '@/components/TableComp';
 import AdminNavbar from '@/components/AdminNavbar';
 import Badge from 'react-bootstrap/Badge';
 import Link from 'next/link';
-import { useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const lessonPages = () => {
@@ -35,11 +35,21 @@ const lessonPages = () => {
     for (let j = 0; j < data.length; j++) {
       data[j]['Edit'] = (
         <div key={j}>
-          <Badge bg="primary" className="p-2 pointer">
-            <Link href={`/allLessonPages/${data[j].id}`}>Edit</Link>
+          <Badge
+            bg="primary"
+            as={Link}
+            href={`/allLessonPages/${data[j].id}`}
+            className="p-2 pointer"
+          >
+            Edit
           </Badge>
-          <Badge bg="primary" className="p-2 ms-3 pointer">
-            <Link href={`/addPage/${data[j].id}`}>Add</Link>
+          <Badge
+            bg="primary"
+            as={Link}
+            href={`/addPage/${data[j].id}`}
+            className="p-2 ms-3 pointer"
+          >
+            Add
           </Badge>
         </div>
       );
