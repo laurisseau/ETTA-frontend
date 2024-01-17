@@ -17,8 +17,6 @@ export default function Home() {
     setEditorValue(value);
   };
 
-  const formattedCode = editorValue.replace(/"/g, '\\"').replace(/\n/g, '\\n');
-  const showFormattedCode = JSON.stringify(formattedCode);
 
   const handleCode = async () => {
     try {
@@ -26,7 +24,7 @@ export default function Home() {
         `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/permitAll/compiler`,
         {
           language: 'python3',
-          code: formattedCode,
+          code: editorValue,
         }
       );
       if (data) {

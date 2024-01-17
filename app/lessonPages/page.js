@@ -38,18 +38,10 @@ const lessonPages = () => {
           <Badge
             bg="primary"
             as={Link}
-            href={`/allLessonPages/${data[j].id}`}
+            href={`/allLessonPages/${data[j].language}/${data[j].id}`}
             className="p-2 pointer"
           >
             Edit
-          </Badge>
-          <Badge
-            bg="primary"
-            as={Link}
-            href={`/addPage/${data[j].id}`}
-            className="p-2 ms-3 pointer"
-          >
-            Add
           </Badge>
         </div>
       );
@@ -78,3 +70,14 @@ const lessonPages = () => {
 };
 
 export default lessonPages;
+
+/*
+  <Badge
+    bg="primary"
+    as={Link}
+    href={`/addPage/${data[j].id}`}
+    className="p-2 ms-3 pointer"
+  >
+    Add
+  </Badge>
+*/

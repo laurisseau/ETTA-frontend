@@ -158,6 +158,20 @@ ul {
   width: 500px;
 }
 
+/* ==========code container============ */
+
+.code-container {
+  position: relative;
+}
+
+.run-button {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 10px; /* Adjust the margin as needed */
+  margin-right: 25px;
+}
+
 .code-box {
   width: 600px;
 }
@@ -172,7 +186,7 @@ ul {
   justify-content: space-between;
   height: 100%;
 }
-
+/* ====================== */
 .course-button {
   font-family: 'Courier New', Courier, monospace;
   letter-spacing: 2px;

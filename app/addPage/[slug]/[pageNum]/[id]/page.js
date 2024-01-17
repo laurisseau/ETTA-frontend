@@ -11,42 +11,18 @@ import { toast } from 'react-toastify';
 import { Context } from '@/app/Provider';
 
 const addPage = ({ params }) => {
-  const [pageNum, setPageNum] = useState(0);
   const [header, setHeader] = useState('');
   const [lessonInfo, setLessonInfo] = useState('');
   const [task, setTask] = useState('');
-  const [editorLanguage, setEditorLanguage] = useState('');
   const [editorValue, setEditorValue] = useState('');
-  const [lessonId, setLessonId] = useState(0);
   const userInfo = useContext(Context);
-  const id = params.id;
+  const slug = params.slug;
+  const pageNum = params.pageNum;
+  const lessonId = params.id;
 
   const handleEditorChange = (value, event) => {
     setEditorValue(value);
   };
-
-  useEffect(() => {
-    const getData = async () => {
-      try {
-        const { data } = await axios.get(
-          `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/admin/lesson/${id}`,
-          {
-            headers: { Authorization: `Bearer ${userInfo.accessToken}` },
-          }
-        );
-
-        if (data) {
-          setLessonId(data.id);
-          setPageNum(data.numOfPages + 1);
-          setEditorLanguage(data.language);
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    getData();
-  }, []);
 
   const correctManicoLanguage = (editorLanguage) => {
     const languageMappings = {
@@ -57,7 +33,6 @@ const addPage = ({ params }) => {
 
     return languageMappings[editorLanguage] || null;
   };
-
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -70,9 +45,9 @@ const addPage = ({ params }) => {
           header,
           lessonInfo,
           task,
-          editorLanguage,
+          editorLanguage: slug,
           editorValue,
-          lessonId
+          lessonId,
         },
         {
           headers: { Authorization: `Bearer ${userInfo.accessToken}` },
@@ -153,7 +128,7 @@ const addPage = ({ params }) => {
                   height="100%"
                   width="100%"
                   theme="vs-dark"
-                  defaultLanguage={correctManicoLanguage(editorLanguage)}
+                  defaultLanguage={correctManicoLanguage(slug)}
                   defaultValue={editorValue}
                   onChange={handleEditorChange}
                 />

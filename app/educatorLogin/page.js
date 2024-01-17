@@ -28,7 +28,7 @@ const educatorLogin = () => {
         }
       );
 
-      const expirationTime = 5; // in minutes
+      const expirationTime = 60; // in minutes
       const expirationDate = new Date();
       expirationDate.setTime(
         expirationDate.getTime() + expirationTime * 60 * 1000

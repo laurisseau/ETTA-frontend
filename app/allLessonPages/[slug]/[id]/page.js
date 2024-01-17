@@ -13,8 +13,11 @@ const allLessonPages = ({ params }) => {
   const tableRows = ['id', 'pageNum', 'editorLanguage', 'lessonId', 'Edit'];
 
   const [pages, setPages] = useState([]);
+  const [pageNum, setPageNum] = useState(0);
   const userInfo = useContext(Context);
+
   const id = params.id;
+  const slug = params.slug;
 
   useEffect(() => {
     const getData = async () => {
@@ -28,6 +31,7 @@ const allLessonPages = ({ params }) => {
 
         if (data) {
           setPages(data);
+          setPageNum(data.length + 1)
         }
       } catch (error) {
         console.error(error);
@@ -69,6 +73,7 @@ const allLessonPages = ({ params }) => {
           data={addEdit(pages)}
           rowsPerPage={10}
           tableRows={tableRows}
+          addBar={`/addPage/${slug}/${pageNum}/${id}`}
         />
       </Col>
     </Row>

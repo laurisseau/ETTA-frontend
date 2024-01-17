@@ -14,6 +14,7 @@ const courses = () => {
   const [accessToken, setAccessToken] = useState('');
   const [refreshData, setRefreshData] = useState(false);
   const [enrolled, setEnrolled] = useState(null);
+  const [allLessons, setAllLessons] = useState([])
 
   const responsive = {
     desktop: {
@@ -34,7 +35,7 @@ const courses = () => {
   };
 
   // max 252 charachter count
-
+/*
   const data = [
     {
       id: 1,
@@ -65,7 +66,7 @@ const courses = () => {
         'Typing liberates mental energy, allowing focus on ideas over language intricacies. Learning keyboarding enhances accuracy and aids decoding, sight-reading skills, benefiting individuals, both children and adults, facing learning challenges.',
     },
   ];
-
+*/
   const joinClassSuccess = () => {
     setRefreshData(true);
   };
@@ -105,11 +106,26 @@ const courses = () => {
       }
     };
 
+    const allLessons = async () => {
+      try {
+        const { data } = await axios.get(
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/permitAll/lessons`
+        );
+
+        if (data) {
+          setAllLessons(data);
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+
+    allLessons()
     isEnrolled();
     getUserInfo();
   }, [refreshData]);
 
-  const courseAccess = (userSubscription, courseSubscription, courseSlug) => {
+  const courseAccess = (userSubscription, courseSubscription, courseSlug, courseId) => {
     let hasAccess = false;
 
     switch (userSubscription) {
@@ -135,7 +151,7 @@ const courses = () => {
     }
 
     if (hasAccess) {
-      window.location.href = `/courses/${courseSlug.replace(/ /g, '_')}`;
+      window.location.href = `/lesson/${courseSlug}/${courseId}`;
     } else {
       Swal.fire('Your class subscription does not cover this course');
     }
@@ -165,7 +181,8 @@ const courses = () => {
             courseAccess(
               enrolled.course.subscription,
               course.subscription,
-              course.name
+              course.name,
+              course.id
             )
           }
         >
@@ -200,8 +217,8 @@ const courses = () => {
             infinite={true}
             partialVisible={true}
           >
-            {data ? (
-              data.map((course) => (
+            {allLessons ? (
+              allLessons.map((course) => (
                 <div className="d-flex justify-content-center" key={course.id}>
                   {' '}
                   <Card
