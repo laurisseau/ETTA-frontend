@@ -3,14 +3,14 @@ import { useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
 import axios from 'axios';
 import { Editor } from '@monaco-editor/react';
-import { Button } from 'react-bootstrap';
+import { Button, Card } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 
 const Lesson = ({ params }) => {
   const id = params.id;
   const [editorValue, setEditorValue] = useState('');
   const [editorLanguage, setEditorLanguage] = useState('');
-  const [outputValue, setOutputValue] = useState('');
+  const [outputValue, setOutputValue] = useState('This is the terminal! ');
   const [header, setHeader] = useState('');
   const [lessonInfo, setLessonInfo] = useState('');
   const [task, setTask] = useState('');
@@ -44,6 +44,7 @@ const Lesson = ({ params }) => {
     if (index < length) {
       setLoading(true);
       setIndex(index + 1);
+      setOutputValue('This is the terminal! ');
     }
   };
 
@@ -51,6 +52,7 @@ const Lesson = ({ params }) => {
     if (index > 0) {
       setLoading(true);
       setIndex(index - 1);
+      setOutputValue('This is the terminal! ');
     }
   };
 
@@ -73,7 +75,7 @@ const Lesson = ({ params }) => {
             setHeader(data[index].header);
             setLessonInfo(data[index].lessonInfo);
             setTask(data[index].task);
-            setEditorLanguage(data[index].editorLanguage);
+            setEditorLanguage(data[index].lessonId.language);
             setEditorValue(data[index].editorValue);
             setLength(data.length - 1);
             setLoading(false);
@@ -87,8 +89,6 @@ const Lesson = ({ params }) => {
     getLesson();
   }, [index]);
 
-  //console.log(editorValue);
-  console.log(index);
   const correctManicoLanguage = (editorLanguage) => {
     const languageMappings = {
       python3: 'python',
@@ -106,19 +106,35 @@ const Lesson = ({ params }) => {
   return (
     <div className="m-4">
       <div className="row">
-        <div className="vh-100 col-md-6">
-          <div className="lesson mb-4">
-            <h2 className="lesson-header">{header}</h2>
-            <p className="lesson-info">{lessonInfo}</p>
-            <h1>Task</h1>
-            <p className="lesson-task">{task}</p>
-          </div>
+        <div className="col-md-6 mb-2 lesson-box">
+          <Card
+            className=" p-3"
+            style={{
+              fontFamily: 'Monaco, monospace',
+              whiteSpace: 'pre-wrap',
+              backgroundColor: '#1E1E1E',
+              color: 'white',
+              overflowY: 'auto',
+              height: '420px',
+            }}
+          >
+            <div className="lesson mb-4">
+              <h2 className="lesson-header">{header}</h2>
+              <p className="lesson-info">{lessonInfo}</p>
+              <h1>Task</h1>
+              <p className="lesson-task">{task}</p>
+            </div>
+          </Card>
         </div>
-        <div className="p-0 m-0 vh-100 col-md-6">
-          <div className="code-container h-50">
+
+        <div className="p-0 m-0 col-md-6" style={{ height: '420px' }}>
+          <div
+            style={{ backgroundColor: '#1E1E1E', height: '70%' }}
+            className="d-flex justify-content-center align-items-center rounded code-container"
+          >
             <Editor
-              height="100%"
-              width="100%"
+              height="98%"
+              width="98%"
               theme="vs-dark"
               defaultLanguage={correctManicoLanguage(editorLanguage)}
               defaultValue={editorValue}
@@ -128,23 +144,28 @@ const Lesson = ({ params }) => {
               <Button onClick={() => handleCode(editorLanguage)}>Run</Button>
             </div>
           </div>
-          <div
+          <Card
             style={{
               fontFamily: 'Monaco, monospace',
               whiteSpace: 'pre-wrap',
+              height: '28%',
+              backgroundColor: '#1E1E1E',
+              color: 'white',
+              overflowY: 'auto',
             }}
-            className="output h-50 w-100 p-2 "
+            className=" mt-2 w-100 p-2 "
           >
             {outputValue}
-          </div>
+          </Card>
         </div>
-        <div className="w-100 d-flex justify-content-end mt-2">
-          <div>
-            <Button className="me-2" onClick={handlePrev}>
-              Prev
-            </Button>
-            <Button onClick={handleNext}>Next</Button>
-          </div>
+      </div>
+
+      <div className="w-100 d-flex justify-content-end mt-1 h-100">
+        <div>
+          <Button className="me-2" onClick={handlePrev}>
+            Prev
+          </Button>
+          <Button onClick={handleNext}>Next</Button>
         </div>
       </div>
     </div>

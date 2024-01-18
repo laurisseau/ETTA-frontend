@@ -386,4 +386,8 @@ ul {
   .contact-us {
     text-align: center;
   }
+
+  .lesson-box{
+    padding: 0 !important;
+  }
 }

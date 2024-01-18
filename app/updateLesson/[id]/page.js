@@ -21,20 +21,25 @@ const updateLesson = ({ params }) => {
 
   useEffect(() => {
     const getData = async () => {
-      try {
-        const { data } = await axios.get(
-          `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/admin/lesson/${id}`
-        );
+      if (userInfo) {
+        try {
+          const { data } = await axios.get(
+            `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/admin/lesson/${id}`,
+            {
+              headers: { Authorization: `Bearer ${userInfo.accessToken}` },
+            }
+          );
 
-        if (data) {
-          setName(data.name);
-          setLanguage(data.language);
-          setSubscription(data.subscription);
-          setDescription(data.description);
-          setSubscriptionId(data.subscriptionId);
+          if (data) {
+            setName(data.name);
+            setLanguage(data.language);
+            setSubscription(data.subscription);
+            setDescription(data.description);
+            setSubscriptionId(data.subscriptionId);
+          }
+        } catch (error) {
+          console.error(error);
         }
-      } catch (error) {
-        console.error(error);
       }
     };
 
@@ -87,6 +92,16 @@ const updateLesson = ({ params }) => {
       //console.error(err);
       toast.error('Something went wrong');
     }
+  };
+
+  const correctManicoLanguage = (editorLanguage) => {
+    const languageMappings = {
+      python3: 'python',
+      nodejs: 'javascript',
+      java: 'java',
+    };
+
+    return languageMappings[editorLanguage] || null;
   };
 
   return (

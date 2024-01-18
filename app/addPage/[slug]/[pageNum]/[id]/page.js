@@ -11,14 +11,40 @@ import { toast } from 'react-toastify';
 import { Context } from '@/app/Provider';
 
 const addPage = ({ params }) => {
+  const [pageNum, setPageNum] = useState(params.pageNum)
   const [header, setHeader] = useState('');
   const [lessonInfo, setLessonInfo] = useState('');
   const [task, setTask] = useState('');
   const [editorValue, setEditorValue] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [lesson, setLesson] = useState('');
   const userInfo = useContext(Context);
   const slug = params.slug;
-  const pageNum = params.pageNum;
   const lessonId = params.id;
+
+  useEffect(() => {
+    const getData = async () => {
+      if (userInfo) {
+        try {
+          const { data } = await axios.get(
+            `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/admin/lesson/${lessonId}`,
+            {
+              headers: { Authorization: `Bearer ${userInfo.accessToken}` },
+            }
+          );
+
+          if (data) {
+            setLesson(data);
+            setLoading(false);
+          }
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    };
+
+    getData();
+  }, [loading]);
 
   const handleEditorChange = (value, event) => {
     setEditorValue(value);
@@ -47,7 +73,7 @@ const addPage = ({ params }) => {
           task,
           editorLanguage: slug,
           editorValue,
-          lessonId,
+          lessonId: lesson,
         },
         {
           headers: { Authorization: `Bearer ${userInfo.accessToken}` },
@@ -62,6 +88,10 @@ const addPage = ({ params }) => {
       toast.error(err.response.data);
     }
   };
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <Row>

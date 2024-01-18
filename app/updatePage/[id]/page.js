@@ -11,6 +11,7 @@ import { toast } from 'react-toastify';
 import { Context } from '@/app/Provider';
 
 const updatePage = ({ params }) => {
+
   const [pageNum, setPageNum] = useState(0);
   const [header, setHeader] = useState('');
   const [lessonInfo, setLessonInfo] = useState('');
@@ -18,6 +19,7 @@ const updatePage = ({ params }) => {
   const [editorLanguage, setEditorLanguage] = useState('');
   const [editorValue, setEditorValue] = useState('');
   const [lessonId, setLessonId] = useState(0);
+  const [loading, setLoading] = useState(true);
   const userInfo = useContext(Context);
   const id = params.id;
 
@@ -36,7 +38,7 @@ const updatePage = ({ params }) => {
         );
 
         if (data) {
-          console.log(data);
+          setLoading(false)
           setPageNum(data.pageNum);
           setHeader(data.header);
           setLessonInfo(data.lessonInfo);
@@ -51,7 +53,7 @@ const updatePage = ({ params }) => {
     };
 
     getPageData();
-  }, []);
+  }, [loading]);
 
   const correctManicoLanguage = (editorLanguage) => {
     const languageMappings = {
@@ -63,9 +65,10 @@ const updatePage = ({ params }) => {
     return languageMappings[editorLanguage] || null;
   };
 
+  //console.log(lessonInfo)
+
   const submitHandler = async (e) => {
     e.preventDefault();
-    console.log(pageNum, header, lessonInfo, task, editorValue, id);
     try {
       const { data } = await axios.put(
         `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/admin/lessonPage/${id}`,
@@ -82,7 +85,7 @@ const updatePage = ({ params }) => {
       );
 
       if (data) {
-        window.location.href = `/allLessonPages/${lessonId}`;
+        window.location.href = `/lessonPages`;
       }
     } catch (err) {
       console.error(err.response.data);
@@ -109,6 +112,10 @@ const updatePage = ({ params }) => {
       toast.error('Something went wrong');
     }
   };
+
+  if(loading){
+    return <div>Loading...</div>;
+  }
 
   return (
     <Row>

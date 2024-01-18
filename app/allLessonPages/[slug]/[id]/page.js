@@ -10,7 +10,7 @@ import axios from 'axios';
 import { Context } from '@/app/Provider';
 
 const allLessonPages = ({ params }) => {
-  const tableRows = ['id', 'pageNum', 'editorLanguage', 'lessonId', 'Edit'];
+  const tableRows = ['id', 'pageNum', 'header', 'Edit'];
 
   const [pages, setPages] = useState([]);
   const [pageNum, setPageNum] = useState(0);
@@ -31,7 +31,7 @@ const allLessonPages = ({ params }) => {
 
         if (data) {
           setPages(data);
-          setPageNum(data.length + 1)
+          setPageNum(data.length + 1);
         }
       } catch (error) {
         console.error(error);
@@ -79,5 +79,7 @@ const allLessonPages = ({ params }) => {
     </Row>
   );
 };
+/*
 
+*/
 export default allLessonPages;
