@@ -76,7 +76,7 @@ const educatorCourse = () => {
             <code>{courseId}</code>
           </div>
         ) : (
-          <Link className="course-button" href="/studentPrices">
+          <Link className="course-button" href="/pricing">
             Create Class
           </Link>
         )}

@@ -43,6 +43,7 @@ const educatorLogin = () => {
         Cookies.set('admin', JSON.stringify(data));
         window.location.href = '/adminDashboard';
       }
+      
     } catch (err) {
       console.log(err.response.data);
       toast.error(err.response.data);

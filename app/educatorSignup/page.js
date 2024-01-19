@@ -84,14 +84,16 @@ const educatorSignup = () => {
       return;
     }
     try {
-      const { data } = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth/educator/signup`, {
-        email,
-        username,
-        password,
-      });
+      const { data } = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth/educator/signup`,
+        {
+          email,
+          username,
+          password,
+        }
+      );
       if (data) {
-        toast.ok('Verify your email to login.');
-        setOutputValue(data.output);
+        toast.success('verify your email to login.');
       }
     } catch (err) {
       //console.log(err);

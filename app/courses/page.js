@@ -34,39 +34,7 @@ const courses = () => {
     },
   };
 
-  // max 252 charachter count
-/*
-  const data = [
-    {
-      id: 1,
-      name: 'Python',
-      subscription: 'Basic',
-      description:
-        'Python, a high-level, interpreted, general-purpose language, prioritizes readable code through significant whitespace. Its object-oriented design and constructs make it ideal for beginners diving into programming.',
-    },
-    {
-      id: 2,
-      name: 'Cyber security',
-      subscription: 'Basic',
-      description:
-        'Cybersecurity is safeguarding internet-connected systems from attacks by hackers, spammers, and cybercriminals. It aims to minimize the risk of cyber attacks and prevent unauthorized access to systems, networks, and technologies.',
-    },
-    {
-      id: 3,
-      name: 'Robotics',
-      subscription: 'Premium',
-      description:
-        'Robotics blends engineering and computer science, encompassing design, manufacture, and operation of robots. The goal is crafting intelligent machines aiding humans across diverse tasks.',
-    },
-    {
-      id: 3,
-      name: 'Basic Typing',
-      subscription: 'Advanced',
-      description:
-        'Typing liberates mental energy, allowing focus on ideas over language intricacies. Learning keyboarding enhances accuracy and aids decoding, sight-reading skills, benefiting individuals, both children and adults, facing learning challenges.',
-    },
-  ];
-*/
+
   const joinClassSuccess = () => {
     setRefreshData(true);
   };

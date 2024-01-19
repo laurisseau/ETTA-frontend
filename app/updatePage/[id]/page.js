@@ -18,7 +18,7 @@ const updatePage = ({ params }) => {
   const [task, setTask] = useState('');
   const [editorLanguage, setEditorLanguage] = useState('');
   const [editorValue, setEditorValue] = useState('');
-  const [lessonId, setLessonId] = useState(0);
+  const [lessonId, setLessonId] = useState({});
   const [loading, setLoading] = useState(true);
   const userInfo = useContext(Context);
   const id = params.id;
@@ -65,8 +65,6 @@ const updatePage = ({ params }) => {
     return languageMappings[editorLanguage] || null;
   };
 
-  //console.log(lessonInfo)
-
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
@@ -76,6 +74,7 @@ const updatePage = ({ params }) => {
           pageNum,
           header,
           lessonInfo,
+          lessonId,
           task,
           editorValue,
         },
@@ -131,7 +130,7 @@ const updatePage = ({ params }) => {
         >
           <div className="w-75 mt-5 ">
             <div className="">
-              <h5 className="mb-3">Add a page</h5>
+              <h5 className="mb-3">Update page</h5>
             </div>
 
             <Form onSubmit={submitHandler}>

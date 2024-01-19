@@ -34,12 +34,14 @@ const Contact = () => {
       <h5 className="text-center pt-3">Get In Touch</h5>
       <h2 className="text-center pb-3">Contact Us</h2>
 
-      <div className="container contact__container">
-        <div className="contact__options " >
-          <article className="contact__option ">
+      <div className="container contact__container w-50">
+        <div className="contact__options ">
+          <article className="contact__option mb-4">
             {/*<MdOutlineEmail className="contact__option-icon" />*/}
-            <h4>Email</h4>
-            <h5 className='' >etta@gmail.com</h5>
+            
+              <h4>Email</h4>
+              <h5 >earlytransitiontotech@gmail.com</h5>
+            
             <a
               href="mailto:earlytransitiontotech@gmail.com"
               rel="noreferrer"
@@ -75,7 +77,7 @@ const Contact = () => {
           <button
             type="submit"
             className="btn btn-lg btn-primary"
-            style={{ backgroundColor: '#ff4f5a' , border:"none"}}
+            style={{ backgroundColor: '#ff4f5a', border: 'none' }}
           >
             Send Message
           </button>
