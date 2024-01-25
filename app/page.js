@@ -62,7 +62,7 @@ export default function Home() {
             <img
               style={{ height: '500px', width: '100%' }}
               alt="data-points"
-              src="https://img.freepik.com/free-vector/data-points-concept-illustration_114360-1715.jpg?w=740&t=st=1700897592~exp=1700898192~hmac=34560987ad6984a47079df8084fe33d73a7e1417a840b4c530620c6058d5f0ef"
+              src="/images/data-points-image.jpg"
             ></img>
           </div>
         </Container>

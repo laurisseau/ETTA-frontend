@@ -13,16 +13,16 @@ const pricing = () => {
           <div className="d-flex flex-wrap justify-content-around align-items-center">
             <PricingCard
               title="Basic"
-              price="FREE"
-              description="Class of 20 and lower"
+              price="PILOT"
+              description="Class of ? and lower"
               features={['basic info 1', 'basic info 2', 'basic info 3']}
               height={'405px'}
             />
 
             <PricingCard
               title="Premium"
-              price="$150"
-              description="Class of 100 and lower"
+              price="$---"
+              description="Class of ? and lower"
               features={[
                 'Premium Info 1',
                 'Premium info 2',
@@ -34,8 +34,8 @@ const pricing = () => {
 
             <PricingCard
               title="Advanced"
-              price="$100"
-              description="Class of 50 and lower"
+              price="$--- "
+              description="Class of ? and lower"
               features={[
                 'advanced info 1',
                 'advanced into 2',
