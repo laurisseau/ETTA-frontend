@@ -10,6 +10,7 @@ import {
 import { Context } from '../app/Provider';
 import { useContext } from 'react';
 import Cookies from 'js-cookie';
+import logo from '@/public/images/logo.png'
 
 
 const NavComp = () => {
@@ -49,7 +50,7 @@ const NavComp = () => {
               >
                 <Offcanvas.Header closeButton>
                   <Offcanvas.Title id={`offcanvasNavbarLabel-expand-md`}>
-                    <Link href="/"><img src="/images/logo.jpeg" style={{height:"50px", width:"50px"}} alt="Logo" /></Link>
+                    <Link href="/"><img src={logo} style={{height:"50px", width:"50px"}} alt="Logo" /></Link>
                   </Offcanvas.Title>
                 </Offcanvas.Header>
                 <Offcanvas.Body>
