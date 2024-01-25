@@ -2,6 +2,8 @@
 import { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import axios from 'axios';
+import { toast } from 'react-toastify';
+import { getError } from '@/app/utils';
 
 const ForgotPassword = ({ user }) => {
   const [email, setEmail] = useState('');
@@ -16,8 +18,7 @@ const ForgotPassword = ({ user }) => {
         window.location.href = '/studentResetPassword';
       }
     } catch (err) {
-      //console.log(err.response.data);
-      toast.error(err.response.data);
+      toast.error(getError(err));
     }
   };
 
@@ -31,8 +32,7 @@ const ForgotPassword = ({ user }) => {
         window.location.href = '/educatorResetPassword';
       }
     } catch (err) {
-      //console.log(err.response.data);
-      toast.error(err.response.data);
+      toast.error(getError(err));
     }
   };
 

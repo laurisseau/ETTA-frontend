@@ -5,6 +5,7 @@ import axios from 'axios';
 import Link from 'next/link';
 import { toast } from 'react-toastify';
 import Cookies from 'js-cookie';
+import { getError } from '../utils';
 
 const signup = () => {
   const [email, setEmail] = useState('');
@@ -91,11 +92,9 @@ const signup = () => {
       });
       if (data) {
         toast.success('Verify your email to login.');
-        //setSignupSuccess('Verify your email to login.');
       }
     } catch (err) {
-      //console.log(err.response.data);
-      toast.error(err.response.data);
+      toast.error(getError(err));
     }
   };
 

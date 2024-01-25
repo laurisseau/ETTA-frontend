@@ -6,15 +6,18 @@ import { useState, useEffect } from 'react';
 import CenteredModal from '@/components/CenteredModal';
 import Cookies from 'js-cookie';
 import axios from 'axios';
-import Swal from 'sweetalert2';
+
 import Link from 'next/link';
+import { toast } from 'react-toastify';
+import { getError, courseAccess } from '../utils';
 
 const courses = () => {
+  const [loading, setLoading] = useState(true);
   const [modalShow, setModalShow] = useState(false);
   const [accessToken, setAccessToken] = useState('');
   const [refreshData, setRefreshData] = useState(false);
   const [enrolled, setEnrolled] = useState(null);
-  const [allLessons, setAllLessons] = useState([])
+  const [allLessons, setAllLessons] = useState([]);
 
   const responsive = {
     desktop: {
@@ -34,96 +37,76 @@ const courses = () => {
     },
   };
 
-
   const joinClassSuccess = () => {
     setRefreshData(true);
   };
 
   useEffect(() => {
-    const userInfoString = Cookies.get('user');
+    const getAllData = async () => {
+      const userInfoString = Cookies.get('user');
+      const promises = [];
 
-    const getUserInfo = () => {
-      if (userInfoString) {
-        try {
-          const userInfo = JSON.parse(userInfoString);
-          setAccessToken(userInfo.accessToken);
-        } catch (error) {
-          console.error('Error parsing user info JSON:', error);
-        }
-      }
-    };
-
-    const isEnrolled = async () => {
-      if (userInfoString) {
-        try {
-          const userInfo = JSON.parse(userInfoString);
-
-          const { data } = await axios.get(
-            `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/user/ifEnrolled/${userInfo.sub}`,
-            {
-              headers: { Authorization: `Bearer ${userInfo.accessToken}` },
-            }
-          );
-
-          if (data) {
-            setEnrolled(data);
-          }
-        } catch (error) {
-          console.error('Error:', error);
-        }
-      }
-    };
-
-    const allLessons = async () => {
       try {
-        const { data } = await axios.get(
-          `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/permitAll/lessons`
-        );
+        const getUserInfo = () => {
+          if (userInfoString) {
+            try {
+              const userInfo = JSON.parse(userInfoString);
+              setAccessToken(userInfo.accessToken);
+            } catch (error) {
+              toast.error('Error parsing user info.');
+            }
+          }
+        };
 
-        if (data) {
-          setAllLessons(data);
-        }
-      } catch (error) {
-        console.error('Error:', error);
+        const isEnrolled = async () => {
+          if (userInfoString) {
+            try {
+              const userInfo = JSON.parse(userInfoString);
+
+              const { data } = await axios.get(
+                `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/user/ifEnrolled/${userInfo.sub}`,
+                {
+                  headers: { Authorization: `Bearer ${userInfo.accessToken}` },
+                }
+              );
+
+              if (data) {
+                setEnrolled(data);
+              }
+            } catch (err) {
+              toast.error(getError(err));
+            }
+          }
+        };
+
+        const allLessons = async () => {
+          try {
+            const { data } = await axios.get(
+              `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/permitAll/lessons`
+            );
+
+            if (data) {
+              setAllLessons(data);
+            }
+          } catch (err) {
+            toast.error(getError(err));
+          }
+        };
+
+        promises.push(getUserInfo());
+        promises.push(isEnrolled());
+        promises.push(allLessons());
+
+        // Wait for all promises to resolve before setting loading to false
+        await Promise.all(promises);
+
+        setLoading(false);
+      } catch (err) {
+        toast.error(getError(err));
       }
     };
-
-    allLessons()
-    isEnrolled();
-    getUserInfo();
+    getAllData();
   }, [refreshData]);
-
-  const courseAccess = (userSubscription, courseSubscription, courseSlug, courseId) => {
-    let hasAccess = false;
-
-    switch (userSubscription) {
-      case 'Basic':
-        hasAccess = courseSubscription === 'Basic';
-        break;
-
-      case 'Advanced':
-        hasAccess =
-          courseSubscription === 'Basic' || courseSubscription === 'Advanced';
-        break;
-
-      case 'Premium':
-        hasAccess =
-          courseSubscription === 'Basic' ||
-          courseSubscription === 'Advanced' ||
-          courseSubscription === 'Premium';
-        break;
-
-      default:
-        Swal.fire('Your class subscription does not cover this course');
-        return;
-    }
-
-    if (hasAccess) {
-      window.location.href = `/lesson/${courseSlug}/${courseId}`;
-    } else {
-      Swal.fire('Your class subscription does not cover this course');
-    }
-  };
 
   const courseButtons = (course) => {
     if (Cookies.get('user') == undefined) {
@@ -159,6 +142,10 @@ const courses = () => {
       );
     }
   };
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div>

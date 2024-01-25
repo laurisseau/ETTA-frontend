@@ -5,6 +5,7 @@ import axios from 'axios';
 import { Editor } from '@monaco-editor/react';
 import { Button, Card } from 'react-bootstrap';
 import { toast } from 'react-toastify';
+import { correctManicoLanguage, getError } from '@/app/utils';
 
 const Lesson = ({ params }) => {
   const id = params.id;
@@ -35,8 +36,7 @@ const Lesson = ({ params }) => {
         setOutputValue(data.output);
       }
     } catch (err) {
-      console.log(err);
-      toast.error('Something went wrong with the compiler.');
+      toast.error(getError(err));
     }
   };
 
@@ -80,8 +80,8 @@ const Lesson = ({ params }) => {
             setLength(data.length - 1);
             setLoading(false);
           }
-        } catch (error) {
-          console.error('Error:', error);
+        } catch (err) {
+          toast.error(getError(err));
         }
       }
     };
@@ -89,18 +89,8 @@ const Lesson = ({ params }) => {
     getLesson();
   }, [index]);
 
-  const correctManicoLanguage = (editorLanguage) => {
-    const languageMappings = {
-      python3: 'python',
-      nodejs: 'javascript',
-      java: 'java',
-    };
-
-    return languageMappings[editorLanguage] || null;
-  };
-
   if (loading) {
-    return <p>Loading...</p>; // Render a loading indicator while fetching data
+    return <p>Loading...</p>;
   }
 
   return (

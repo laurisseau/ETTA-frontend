@@ -38,8 +38,8 @@ const updateLesson = ({ params }) => {
             setDescription(data.description);
             setSubscriptionId(data.subscriptionId);
           }
-        } catch (error) {
-          console.error(error);
+        } catch (err) {
+          toast.error(getError(err));
         }
       }
     };
@@ -70,8 +70,7 @@ const updateLesson = ({ params }) => {
         toast.success('Lesson updated');
       }
     } catch (err) {
-      console.error(err);
-      toast.error(err.response.data);
+      toast.error(getError(err));
     }
   };
 

@@ -7,6 +7,8 @@ import Badge from 'react-bootstrap/Badge';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { toast } from 'react-toastify';
+import { getError } from '../utils';
 
 const lessonPages = () => {
   const tableRows = ['id', 'name', 'language', 'numOfPages', 'Edit'];
@@ -23,8 +25,8 @@ const lessonPages = () => {
         if (data) {
           setLessons(data);
         }
-      } catch (error) {
-        console.error(error);
+      } catch (err) {
+        toast.error(getError(err));
       }
     };
 

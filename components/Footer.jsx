@@ -57,7 +57,7 @@ const Footer = () => {
           <div>
             <h3>Contact Us</h3>
             <p>Email: earlytransitiontotech@gmail.com</p>
-            <p>Phone: +1 123 456 7890</p>
+            <p>Phone: +1 256 460 0074</p>
           </div>
         </div>
       </div>

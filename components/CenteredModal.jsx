@@ -2,6 +2,8 @@ import { Modal, Form, Button } from 'react-bootstrap';
 import { useState } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import { toast } from 'react-toastify';
+import { getError } from '@/app/utils';
 
 function CenteredModal({ show, accessToken, onHide, joinClassSuccess }) {
   const [courseId, setCourseId] = useState('');
@@ -25,7 +27,7 @@ function CenteredModal({ show, accessToken, onHide, joinClassSuccess }) {
       }
     } catch (err) {
       onHide();
-      Swal.fire(`${err.response.data}`);
+      toast.error(getError(err))
     }
   };
 

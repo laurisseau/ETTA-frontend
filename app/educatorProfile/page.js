@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import Cookies from 'js-cookie';
+import { getError } from '../utils';
 
 const educatorProfile = () => {
   const [email, setEmail] = useState('');
@@ -36,8 +37,8 @@ const educatorProfile = () => {
           if (data) {
             setCourse(data.courseId);
           }
-        } catch (error) {
-          console.error('Error:', error);
+        } catch (err) {
+          toast.error(getError(err));
         }
       }
     };
@@ -49,8 +50,8 @@ const educatorProfile = () => {
           setEmail(userInfo.email);
           setUsername(userInfo.username);
           setAccessToken(userInfo.accessToken);
-        } catch (error) {
-          console.error('Error parsing user info JSON:', error);
+        } catch (err) {
+          toast.error('Error parsing user info');
         }
       }
     };
@@ -81,8 +82,7 @@ const educatorProfile = () => {
         toast.success('Profile updated');
       }
     } catch (err) {
-      //console.log(err.response.data);
-      toast.error(err.response.data);
+      toast.error(getError(err));
     }
   };
 
@@ -99,8 +99,7 @@ const educatorProfile = () => {
 
       setCourse(null);
     } catch (err) {
-      //console.log(err.response.data);
-      toast.error(err.response.data);
+      toast.error(getError(err));
     }
   };
 

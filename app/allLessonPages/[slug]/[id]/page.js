@@ -7,34 +7,42 @@ import Badge from 'react-bootstrap/Badge';
 import Link from 'next/link';
 import { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
+import Cookies from 'js-cookie';
 import { Context } from '@/app/Provider';
+import { getError } from '@/app/utils';
+import { toast } from 'react-toastify';
 
 const allLessonPages = ({ params }) => {
   const tableRows = ['id', 'pageNum', 'header', 'Edit'];
 
   const [pages, setPages] = useState([]);
   const [pageNum, setPageNum] = useState(0);
-  const userInfo = useContext(Context);
 
   const id = params.id;
   const slug = params.slug;
 
   useEffect(() => {
+    const userInfoString = Cookies.get('admin');
+
     const getData = async () => {
       try {
-        const { data } = await axios.get(
-          `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/admin/lessonPages/${id}`,
-          {
-            headers: { Authorization: `Bearer ${userInfo.accessToken}` },
-          }
-        );
+        if (userInfoString) {
+          const userInfo = JSON.parse(userInfoString);
 
-        if (data) {
-          setPages(data);
-          setPageNum(data.length + 1);
+          const { data } = await axios.get(
+            `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/admin/lessonPages/${id}`,
+            {
+              headers: { Authorization: `Bearer ${userInfo.accessToken}` },
+            }
+          );
+
+          if (data) {
+            setPages(data);
+            setPageNum(data.length + 1);
+          }
         }
-      } catch (error) {
-        console.error(error);
+      } catch (err) {
+        toast.error(getError(err));
       }
     };
 

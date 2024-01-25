@@ -2,9 +2,7 @@ import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import AdminNavbar from '@/components/AdminNavbar';
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
 import {faCreditCard, faUser, faChalkboardUser} from '@fortawesome/free-solid-svg-icons';
 
 const adminDashboard = () => {

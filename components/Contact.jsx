@@ -1,31 +1,29 @@
 import React, { useState } from 'react';
-//import { MdOutlineEmail } from 'react-icons/md';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
 import { useRef } from 'react';
-//import emailjs from 'emailjs-com';
+import { toast } from 'react-toastify';
+import { getError } from '@/app/utils';
+import emailjs from 'emailjs-com';
 
 const Contact = () => {
   const form = useRef();
 
-  const [sent, setSent] = useState('');
-
   const sendEmail = async (e) => {
     try {
       e.preventDefault();
-      console.log('email');
-      /*
-        emailjs.sendForm(
-          'service_rtugql8',
-          'template_5jw9u4k',
-          form.current,
-          'NiaXoFFBYSoYQ4e4z'
-        );
-  
-        e.target.reset();
-  
-        setSent('Message Sent');
-        */
+
+      emailjs.sendForm(
+        'service_rtugql8',
+        'template_5jw9u4k',
+        form.current,
+        'NiaXoFFBYSoYQ4e4z'
+      );
+
+      e.target.reset();
+      toast.success('Message Sent');
     } catch (err) {
-      //setSent(err);
+      toast.error(getError(err));
     }
   };
 
@@ -37,11 +35,11 @@ const Contact = () => {
       <div className="container contact__container w-50">
         <div className="contact__options ">
           <article className="contact__option mb-4">
-            {/*<MdOutlineEmail className="contact__option-icon" />*/}
-            
-              <h4>Email</h4>
-              <h5 >earlytransitiontotech@gmail.com</h5>
-            
+            <FontAwesomeIcon style={{ fontSize: '40px' }} icon={faEnvelope} />
+
+            <h5>Email</h5>
+            <h5>earlytransitiontotech@gmail.com</h5>
+
             <a
               href="mailto:earlytransitiontotech@gmail.com"
               rel="noreferrer"
@@ -52,7 +50,7 @@ const Contact = () => {
           </article>
         </div>
         {/* END OF CONTACT OPTIONS */}
-        <form className="contact-form" ref={form} onSubmit={sendEmail}>
+        <form className="contact-form mb-5" ref={form} onSubmit={sendEmail}>
           <input
             className="contact-input"
             type="text"
@@ -81,7 +79,6 @@ const Contact = () => {
           >
             Send Message
           </button>
-          <div>{sent}</div>
         </form>
       </div>
     </section>

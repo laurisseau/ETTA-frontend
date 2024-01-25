@@ -5,6 +5,7 @@ import axios from 'axios';
 import Link from 'next/link';
 import { toast } from 'react-toastify';
 import Cookies from 'js-cookie';
+import { getError } from '../utils';
 
 const login = () => {
   const [email, setEmail] = useState('');
@@ -40,8 +41,7 @@ const login = () => {
         window.location.href = '/';
       }
     } catch (err) {
-      //console.log(err.response.data);
-      toast.error(err.response.data);
+      toast.error(getError(err));
     }
   };
 

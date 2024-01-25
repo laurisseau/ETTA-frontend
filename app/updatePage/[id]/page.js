@@ -6,12 +6,11 @@ import Col from 'react-bootstrap/Col';
 import AdminNavbar from '@/components/AdminNavbar';
 import { Editor } from '@monaco-editor/react';
 import axios from 'axios';
-import Link from 'next/link';
+import Cookies from 'js-cookie';
 import { toast } from 'react-toastify';
-import { Context } from '@/app/Provider';
+import { correctManicoLanguage, getError } from '@/app/utils';
 
 const updatePage = ({ params }) => {
-
   const [pageNum, setPageNum] = useState(0);
   const [header, setHeader] = useState('');
   const [lessonInfo, setLessonInfo] = useState('');
@@ -20,7 +19,6 @@ const updatePage = ({ params }) => {
   const [editorValue, setEditorValue] = useState('');
   const [lessonId, setLessonId] = useState({});
   const [loading, setLoading] = useState(true);
-  const userInfo = useContext(Context);
   const id = params.id;
 
   const handleEditorChange = (value, event) => {
@@ -28,42 +26,37 @@ const updatePage = ({ params }) => {
   };
 
   useEffect(() => {
+    const userInfoString = Cookies.get('admin');
+
     const getPageData = async () => {
       try {
-        const { data } = await axios.get(
-          `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/admin/lessonPage/${id}`,
-          {
-            headers: { Authorization: `Bearer ${userInfo.accessToken}` },
-          }
-        );
+        if (userInfoString) {
+          const userInfo = JSON.parse(userInfoString);
+          const { data } = await axios.get(
+            `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/admin/lessonPage/${id}`,
+            {
+              headers: { Authorization: `Bearer ${userInfo.accessToken}` },
+            }
+          );
 
-        if (data) {
-          setLoading(false)
-          setPageNum(data.pageNum);
-          setHeader(data.header);
-          setLessonInfo(data.lessonInfo);
-          setTask(data.task);
-          setEditorValue(data.editorValue);
-          setEditorLanguage(data.editorLanguage);
-          setLessonId(data.lessonId);
+          if (data) {
+            setPageNum(data.pageNum);
+            setHeader(data.header);
+            setLessonInfo(data.lessonInfo);
+            setTask(data.task);
+            setEditorValue(data.editorValue);
+            setEditorLanguage(data.lessonId.language);
+            setLessonId(data.lessonId);
+            setLoading(false);
+          }
         }
-      } catch (error) {
-        console.error(error);
+      } catch (err) {
+        toast.error(getError(err));
       }
     };
 
     getPageData();
   }, [loading]);
-
-  const correctManicoLanguage = (editorLanguage) => {
-    const languageMappings = {
-      python3: 'python',
-      nodejs: 'javascript',
-      java: 'java',
-    };
-
-    return languageMappings[editorLanguage] || null;
-  };
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -87,8 +80,7 @@ const updatePage = ({ params }) => {
         window.location.href = `/lessonPages`;
       }
     } catch (err) {
-      console.error(err.response.data);
-      toast.error(err.response.data);
+      toast.error(getError(err));
     }
   };
 
@@ -107,12 +99,11 @@ const updatePage = ({ params }) => {
         window.location.href = '/lessonPages';
       }
     } catch (err) {
-      console.error(err);
-      toast.error('Something went wrong');
+      toast.error(getError(err));
     }
   };
 
-  if(loading){
+  if (loading) {
     return <div>Loading...</div>;
   }
 

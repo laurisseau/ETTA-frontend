@@ -7,6 +7,8 @@ import Badge from 'react-bootstrap/Badge';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { getError } from '../utils';
+import { toast } from 'react-toastify';
 
 const adminLessons = () => {
   const tableRows = ['id', 'name', 'language', 'subscription', 'Edit'];
@@ -22,8 +24,8 @@ const adminLessons = () => {
         if (data) {
           setLessons(data);
         }
-      } catch (error) {
-        console.error(error);
+      } catch (err) {
+        toast.error(getError(err))
       }
     };
 

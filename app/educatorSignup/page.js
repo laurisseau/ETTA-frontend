@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import axios from 'axios';
 import Link from 'next/link';
 import Cookies from 'js-cookie';
+import { getError } from '../utils';
 
 const educatorSignup = () => {
   const [email, setEmail] = useState('');
@@ -80,7 +81,6 @@ const educatorSignup = () => {
     e.preventDefault();
     if (password !== confirmPassword) {
       toast.error('Passwords do not match');
-      console.log('Passwords do not match');
       return;
     }
     try {
@@ -96,8 +96,7 @@ const educatorSignup = () => {
         toast.success('verify your email to login.');
       }
     } catch (err) {
-      //console.log(err);
-      toast.error(err.response.data);
+      toast.error(getError(err));
     }
   };
 

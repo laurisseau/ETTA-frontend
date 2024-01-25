@@ -7,6 +7,7 @@ import AdminNavbar from '@/components/AdminNavbar';
 import axios from 'axios';
 import { Context } from '@/app/Provider';
 import { toast } from 'react-toastify';
+import { getError } from '../utils';
 
 const createLesson = () => {
   const [name, setName] = useState('');
@@ -41,8 +42,7 @@ const createLesson = () => {
         window.location.href = '/adminLessons';
       }
     } catch (err) {
-      //console.error(err);
-      toast.error('Something went wrong');
+      toast.error(getError(err));
     }
   };
 

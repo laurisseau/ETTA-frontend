@@ -6,9 +6,10 @@ import Col from 'react-bootstrap/Col';
 import AdminNavbar from '@/components/AdminNavbar';
 import { Editor } from '@monaco-editor/react';
 import axios from 'axios';
-import Link from 'next/link';
 import { toast } from 'react-toastify';
 import { Context } from '@/app/Provider';
+import { correctManicoLanguage } from '@/app/utils';
+import { getError } from '@/app/utils';
 
 const addPage = ({ params }) => {
   const [pageNum, setPageNum] = useState(params.pageNum)
@@ -37,8 +38,8 @@ const addPage = ({ params }) => {
             setLesson(data);
             setLoading(false);
           }
-        } catch (error) {
-          console.error(error);
+        } catch (err) {
+          toast.error(getError(err))
         }
       }
     };
@@ -48,16 +49,6 @@ const addPage = ({ params }) => {
 
   const handleEditorChange = (value, event) => {
     setEditorValue(value);
-  };
-
-  const correctManicoLanguage = (editorLanguage) => {
-    const languageMappings = {
-      python3: 'python',
-      nodejs: 'javascript',
-      java: 'java',
-    };
-
-    return languageMappings[editorLanguage] || null;
   };
 
   const submitHandler = async (e) => {
@@ -84,8 +75,7 @@ const addPage = ({ params }) => {
         window.location.href = '/lessonPages';
       }
     } catch (err) {
-      console.error(err.response.data);
-      toast.error(err.response.data);
+      toast.error(getError(err));
     }
   };
 

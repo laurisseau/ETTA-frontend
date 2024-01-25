@@ -10,6 +10,8 @@ import {
 import Cookies from 'js-cookie';
 import axios from 'axios';
 import Link from 'next/link';
+import { toast } from 'react-toastify';
+import { getError } from '../utils';
 
 const educatorCourse = () => {
   const [allEnrolled, setAllEnrolled] = useState(null);
@@ -37,8 +39,8 @@ const educatorCourse = () => {
           if (data) {
             setCourseId(data.courseId);
           }
-        } catch (error) {
-          console.error('Error:', error);
+        } catch (err) {
+          toast.error(getError(err))
         }
       }
     };
@@ -57,8 +59,8 @@ const educatorCourse = () => {
           if (data) {
             setAllEnrolled(data);
           }
-        } catch (error) {
-          console.error('Error:', error);
+        } catch (err) {
+          toast.error(getError(err))
         }
       }
     };

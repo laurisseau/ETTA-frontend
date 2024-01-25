@@ -5,6 +5,8 @@ import { faCircleCheck } from '@fortawesome/free-regular-svg-icons';
 import { Context } from '../app/Provider';
 import { useContext } from 'react';
 import axios from 'axios';
+import { toast } from 'react-toastify';
+import { getError } from '@/app/utils';
 
 const PricingCard = ({ title, price, description, features, height }) => {
   const value = useContext(Context);
@@ -27,8 +29,8 @@ const PricingCard = ({ title, price, description, features, height }) => {
       if (data) {
         window.location.href = '/educatorCourse';
       }
-    } catch (error) {
-      console.error('Error:', error);
+    } catch (err) {
+      toast.error(getError(err))
     }
   };
 

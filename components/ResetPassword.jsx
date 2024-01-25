@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { getError } from '@/app/utils';
 
 const ResetPassword = ({ user }) => {
   const [email, setEmail] = useState('');
@@ -21,8 +22,7 @@ const ResetPassword = ({ user }) => {
         toast.success('Password changed');
       }
     } catch (err) {
-      //console.log(err.response.data);
-      toast.error(err.response.data);
+      toast.error(getError(err));
     }
   };
 
@@ -38,8 +38,7 @@ const ResetPassword = ({ user }) => {
         toast.success('Password changed');
       }
     } catch (err) {
-      //console.log(err.response.data);
-      toast.error(err.response.data);
+      toast.error(getError(err));
     }
   };
 

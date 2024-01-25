@@ -46,7 +46,6 @@ const educatorLogin = () => {
       }
       
     } catch (err) {
-      console.log(err);
       toast.error(getError(err));
     }
   };

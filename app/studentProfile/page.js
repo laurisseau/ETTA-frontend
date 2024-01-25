@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import Cookies from 'js-cookie';
+import { getError } from '../utils';
 
 const studentProfile = () => {
   const [email, setEmail] = useState('');
@@ -25,8 +26,8 @@ const studentProfile = () => {
           setUsername(userInfo.username);
           setAccessToken(userInfo.accessToken);
           setUserId(userInfo.sub);
-        } catch (error) {
-          console.error('Error parsing user info JSON:', error);
+        } catch (err) {
+          toast.error('Error parsing user info');
         }
       }
     };
@@ -46,8 +47,8 @@ const studentProfile = () => {
           if (data) {
             setEnrolled(data);
           }
-        } catch (error) {
-          console.error('Error:', error);
+        } catch (err) {
+          toast.error(getError(err));
         }
       }
     };
@@ -79,8 +80,7 @@ const studentProfile = () => {
         toast.success('Profile updated');
       }
     } catch (err) {
-      //console.log(err.response.data);
-      toast.error(err.response.data);
+      toast.error(getError(err));
     }
   };
 
@@ -97,8 +97,7 @@ const studentProfile = () => {
 
       setEnrolled(null);
     } catch (err) {
-      //console.log(err.response.data);
-      toast.error(err.response.data);
+      toast.error(getError(err));
     }
   };
 
