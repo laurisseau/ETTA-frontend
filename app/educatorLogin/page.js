@@ -5,6 +5,7 @@ import axios from 'axios';
 import Link from 'next/link';
 import Cookies from 'js-cookie';
 import { toast } from 'react-toastify';
+import { getError } from '@/app/utils.js';
 
 const educatorLogin = () => {
   const [email, setEmail] = useState('');
@@ -45,8 +46,8 @@ const educatorLogin = () => {
       }
       
     } catch (err) {
-      console.log(err.response.data);
-      toast.error(err.response.data);
+      console.log(err);
+      toast.error(getError(err));
     }
   };
 

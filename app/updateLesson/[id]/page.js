@@ -7,6 +7,7 @@ import AdminNavbar from '@/components/AdminNavbar';
 import axios from 'axios';
 import { Context } from '@/app/Provider';
 import { toast } from 'react-toastify';
+import { getError } from '@/app/utils.js';
 
 const updateLesson = ({ params }) => {
   const [name, setName] = useState('');
@@ -69,8 +70,8 @@ const updateLesson = ({ params }) => {
         toast.success('Lesson updated');
       }
     } catch (err) {
-      //console.error(err);
-      toast.error('Something went wrong');
+      console.error(err);
+      toast.error(err.response.data);
     }
   };
 
@@ -89,19 +90,8 @@ const updateLesson = ({ params }) => {
         window.location.href = '/adminLessons';
       }
     } catch (err) {
-      //console.error(err);
-      toast.error('Something went wrong');
+      toast.error(getError(err));
     }
-  };
-
-  const correctManicoLanguage = (editorLanguage) => {
-    const languageMappings = {
-      python3: 'python',
-      nodejs: 'javascript',
-      java: 'java',
-    };
-
-    return languageMappings[editorLanguage] || null;
   };
 
   return (
