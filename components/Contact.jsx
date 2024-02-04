@@ -12,12 +12,20 @@ const Contact = () => {
   const sendEmail = async (e) => {
     try {
       e.preventDefault();
-
+      /*
       emailjs.sendForm(
         'service_rtugql8',
         'template_5jw9u4k',
         form.current,
         'NiaXoFFBYSoYQ4e4z'
+      );
+      */
+
+      emailjs.sendForm(
+        'service_angte9b', // service id
+        'template_otwjkpa', // template id
+        form.current,
+        'J7uTZgmEaW62qYxl0' // public key
       );
 
       e.target.reset();
