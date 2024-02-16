@@ -22,6 +22,7 @@ const NavComp = () => {
     Cookies.remove('admin');
     window.location.reload();
   };
+  /
 
   return (
     <div className="container-fluid">
