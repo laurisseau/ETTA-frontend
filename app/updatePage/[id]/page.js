@@ -18,6 +18,7 @@ const updatePage = ({ params }) => {
   const [editorLanguage, setEditorLanguage] = useState('');
   const [editorValue, setEditorValue] = useState('');
   const [lessonId, setLessonId] = useState({});
+  const [userObj, setUserObj] = useState({});
   const [loading, setLoading] = useState(true);
   const id = params.id;
 
@@ -27,10 +28,12 @@ const updatePage = ({ params }) => {
 
   useEffect(() => {
     const userInfoString = Cookies.get('admin');
+    
 
     const getPageData = async () => {
       try {
         if (userInfoString) {
+          setUserObj(JSON.parse(userInfoString));
           const userInfo = JSON.parse(userInfoString);
           const { data } = await axios.get(
             `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/admin/lessonPage/${id}`,
@@ -72,7 +75,7 @@ const updatePage = ({ params }) => {
           editorValue,
         },
         {
-          headers: { Authorization: `Bearer ${userInfo.accessToken}` },
+          headers: { Authorization: `Bearer ${userObj.accessToken}` },
         }
       );
 
@@ -91,7 +94,7 @@ const updatePage = ({ params }) => {
       const { data } = await axios.delete(
         `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/admin/deletePage/${id}`,
         {
-          headers: { Authorization: `Bearer ${userInfo.accessToken}` },
+          headers: { Authorization: `Bearer ${userObj.accessToken}` },
         }
       );
 
