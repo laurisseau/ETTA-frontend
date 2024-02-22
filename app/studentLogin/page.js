@@ -30,14 +30,14 @@ const login = () => {
         }
       );
       if (data) {
-        const expirationTime = 60; // in minutes
+        const expirationTime = 23; // in hours
         const expirationDate = new Date();
         expirationDate.setTime(
-          expirationDate.getTime() + expirationTime * 60 * 1000
-        ); // convert minutes to milliseconds
+          expirationDate.getTime() + expirationTime * 60 * 60 * 1000
+        ); // convert hours to milliseconds
 
-        data['expirationDate'] = expirationDate;
-        Cookies.set('user', JSON.stringify(data), { expires: 1 / 12 });
+        data['expirationDate'] = expirationDate; // expiration date is 23 hours
+        Cookies.set('user', JSON.stringify(data), { expires: 23 / 24 });
         window.location.href = '/';
       }
     } catch (err) {

@@ -20,7 +20,7 @@ const NavComp = () => {
     Cookies.remove('user');
     Cookies.remove('educator');
     Cookies.remove('admin');
-    window.location.reload();
+    window.location = '/loginOption';
   };
 
   return (
@@ -30,9 +30,16 @@ const NavComp = () => {
           <div>
             <Link
               href="/adminDashboard"
-              className="text-decoration-none text-white d-flex align-items-center ms-3 mt-2"
+              className="text-decoration-none text-white d-flex align-items-center ms-3 mt-3"
             >
-              <span className="ms-1 fs-4 d-none d-sm-inline">Brand</span>
+              <span className="ms-1 fs-4 d-none d-sm-inline">
+                {' '}
+                <img
+                  src="/images/logo.png"
+                  style={{ height: '45px', width: '45px' }}
+                  alt="Logo"
+                />
+              </span>
             </Link>
 
             <hr className="text-secondary d-none d-sm-block" />
@@ -42,7 +49,7 @@ const NavComp = () => {
                   href="/adminDashboard"
                   className="nav-link text-white fs-5 d-flex "
                 >
-                  <FontAwesomeIcon icon={faChartLine}/>
+                  <FontAwesomeIcon icon={faChartLine} />
                   <span className="ms-3 d-none d-sm-inline">Dasboard</span>
                 </Link>
               </li>
@@ -68,10 +75,7 @@ const NavComp = () => {
               </li>
 
               <li className="nav-item text-white fs-4 my-1 py-2 py-sm-0">
-                <Link
-                  href="/users"
-                  className="nav-link text-white fs-5 d-flex"
-                >
+                <Link href="/users" className="nav-link text-white fs-5 d-flex">
                   <FontAwesomeIcon icon={faUserGroup} />
                   <span className="ms-3 d-none d-sm-inline">Users</span>
                 </Link>

@@ -12,6 +12,7 @@ const Lesson = ({ params }) => {
   const [editorValue, setEditorValue] = useState('');
   const [editorLanguage, setEditorLanguage] = useState('');
   const [outputValue, setOutputValue] = useState('This is the terminal! ');
+  const [subHeader, setSubHeader] = useState('');
   const [header, setHeader] = useState('');
   const [lessonInfo, setLessonInfo] = useState('');
   const [task, setTask] = useState('');
@@ -73,6 +74,7 @@ const Lesson = ({ params }) => {
 
           if (data) {
             setHeader(data[index].header);
+            setSubHeader(data[index].subHeader)
             setLessonInfo(data[index].lessonInfo);
             setTask(data[index].task);
             setEditorLanguage(data[index].lessonId.language);
@@ -98,9 +100,8 @@ const Lesson = ({ params }) => {
       <div className="row">
         <div className="col-md-6 mb-2 lesson-box">
           <Card
-            className=" p-3"
+            className="lesson-font p-3"
             style={{
-              fontFamily: 'Monaco, monospace',
               whiteSpace: 'pre-wrap',
               backgroundColor: '#1E1E1E',
               color: 'white',
@@ -110,9 +111,10 @@ const Lesson = ({ params }) => {
           >
             <div className="lesson mb-4">
               <h2 className="lesson-header">{header}</h2>
-              <p className="lesson-info">{lessonInfo}</p>
+              <h4 className='lesson-subheader'>{subHeader}</h4>
+              <p className="border-bottom pb-3 lesson-info">{lessonInfo}</p>
               <h1>Task</h1>
-              <p className="lesson-task">{task}</p>
+              <p className="lesson-task pt-1">{task}</p>
             </div>
           </Card>
         </div>

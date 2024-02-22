@@ -21,28 +21,44 @@ const Footer = () => {
                 className="d-flex justify-content-between mt-3"
                 style={{ width: '200px' }}
               >
-                <Link href="#" target="_blank" rel="noopener noreferrer">
+                <Link
+                  href="https://www.facebook.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <FontAwesomeIcon
                     icon={faSquareFacebook}
                     size="2x"
                     color="#ffffff"
                   />
                 </Link>
-                <Link href="#" target="_blank" rel="noopener noreferrer">
+                <Link
+                  href="https://twitter.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <FontAwesomeIcon
                     icon={faSquareTwitter}
                     size="2x"
                     color="#ffffff"
                   />
                 </Link>
-                <Link href="#" target="_blank" rel="noopener noreferrer">
+                <Link
+                  href="https://www.linkedin.com/company/early-transition-in-tech/mycompany/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <FontAwesomeIcon
                     icon={faLinkedin}
                     size="2x"
                     color="#ffffff"
                   />
                 </Link>
-                <Link href="#" target="_blank" rel="noopener noreferrer">
+                <Link
+                  href="https://www.instagram.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <FontAwesomeIcon
                     icon={faSquareInstagram}
                     size="2x"
@@ -58,6 +74,7 @@ const Footer = () => {
             <h3>Contact Us</h3>
             <p>Email: earlytransitiontotech@gmail.com</p>
             <p>Phone: +1 256 460 0074</p>
+            <p>EIN: 93-2964280</p>
           </div>
         </div>
       </div>

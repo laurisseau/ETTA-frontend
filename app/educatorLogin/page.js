@@ -29,19 +29,19 @@ const educatorLogin = () => {
         }
       );
 
-      const expirationTime = 60; // in minutes
+      const expirationTime = 23; // in hours
       const expirationDate = new Date();
       expirationDate.setTime(
-        expirationDate.getTime() + expirationTime * 60 * 1000
-      ); // convert minutes to milliseconds
+        expirationDate.getTime() + expirationTime * 60 * 60 * 1000
+      ); // convert hours to milliseconds
 
-      data['expirationDate'] = expirationDate;
+      data['expirationDate'] = expirationDate; // expiration date is 23 hours
 
       if (data.role == 'EDUCATOR') {
-        Cookies.set('educator', JSON.stringify(data));
+        Cookies.set('educator', JSON.stringify(data), { expires: 23 / 24 });
         window.location.href = '/';
       } else if (data.role == 'ADMIN') {
-        Cookies.set('admin', JSON.stringify(data));
+        Cookies.set('admin', JSON.stringify(data), { expires: 23 / 24 });
         window.location.href = '/adminDashboard';
       }
       

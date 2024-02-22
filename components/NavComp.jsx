@@ -11,7 +11,6 @@ import { Context } from '../app/Provider';
 import { useContext } from 'react';
 import Cookies from 'js-cookie';
 
-
 const NavComp = () => {
   const value = useContext(Context);
   const authCookie = value.role;
@@ -19,7 +18,7 @@ const NavComp = () => {
   const signoutHandler = () => {
     Cookies.remove('user');
     Cookies.remove('educator');
-    window.location.reload();
+    window.location = '/loginOption';
   };
 
   return (
@@ -35,8 +34,11 @@ const NavComp = () => {
             <div className="d-none d-md-block">
               <Link href="/">
                 {' '}
-                <img src="/images/logo.png" style={{height:"45px", width:"45px"}} alt="Logo" />
-
+                <img
+                  src="/images/logo.png"
+                  style={{ height: '45px', width: '45px' }}
+                  alt="Logo"
+                />
               </Link>
             </div>
 
@@ -49,12 +51,18 @@ const NavComp = () => {
               >
                 <Offcanvas.Header closeButton>
                   <Offcanvas.Title id={`offcanvasNavbarLabel-expand-md`}>
-                    <Link href="/"><img src="/images/logo.png" style={{height:"45px", width:"45px"}} alt="Logo" /></Link>
+                    <Nav.Link href="/">
+                      <img
+                        src="/images/logo.png"
+                        style={{ height: '45px', width: '45px' }}
+                        alt="Logo"
+                      />
+                    </Nav.Link>
                   </Offcanvas.Title>
                 </Offcanvas.Header>
                 <Offcanvas.Body>
                   <Nav className="align-items-center me-auto">
-                    <Link
+                    <Nav.Link
                       className="nav-link"
                       href={
                         authCookie == 'EDUCATOR'
@@ -63,14 +71,19 @@ const NavComp = () => {
                       }
                     >
                       Courses
-                    </Link>
+                    </Nav.Link>
                     <NavDropdown title="Community" id="communityDropdown">
-                      <NavDropdown.Item href="https://discord.com/">
+                      <NavDropdown.Item
+                        href="https://discord.com/"
+                        target="_blank"
+                      >
                         Discord
                       </NavDropdown.Item>
                     </NavDropdown>
+
                     <Nav.Link href="/pricing">Pricing</Nav.Link>
-                    <Nav.Link href="https://www.gofundme.com/">
+
+                    <Nav.Link href="https://donorbox.org/" target="_blank">
                       Donations
                     </Nav.Link>
                   </Nav>

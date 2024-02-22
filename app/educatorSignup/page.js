@@ -10,6 +10,7 @@ import { getError } from '../utils';
 const educatorSignup = () => {
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
+  const [school, setSchool] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
@@ -90,6 +91,7 @@ const educatorSignup = () => {
           email,
           username,
           password,
+          school,
         }
       );
       if (data) {
@@ -102,10 +104,7 @@ const educatorSignup = () => {
 
   return (
     <div>
-      <div
-        className="d-flex align-items-center justify-content-center"
-        style={{ height: '100vh' }}
-      >
+      <div className="d-flex align-items-center justify-content-center mt-5">
         <div style={{ width: '350px' }}>
           <div className="d-flex justify-content-center">
             <div className="">
@@ -129,6 +128,16 @@ const educatorSignup = () => {
                 className="address-form-height"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
+              />
+            </Form.Group>
+
+            <Form.Group className="mb-4" controlId="school">
+              <Form.Control
+                type="school"
+                placeholder="Enter the school you work for"
+                className="address-form-height"
+                value={school}
+                onChange={(e) => setSchool(e.target.value)}
               />
             </Form.Group>
 

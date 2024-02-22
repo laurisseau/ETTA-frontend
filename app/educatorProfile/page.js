@@ -12,6 +12,7 @@ const educatorProfile = () => {
   const [accessToken, setAccessToken] = useState('');
   const [educatorId, setEducatorId] = useState('');
   const [course, setCourse] = useState(null);
+  const [school, setSchool] = useState('');
 
   useEffect(() => {
     const userInfoString = Cookies.get('educator');
@@ -20,13 +21,13 @@ const educatorProfile = () => {
     }
     if (userInfoString) {
       const userInfo = JSON.parse(userInfoString);
+
       setEducatorId(userInfo.sub);
     }
     const getCourseByEducatorId = async () => {
       if (userInfoString) {
         try {
           const userInfo = JSON.parse(userInfoString);
-
           const { data } = await axios.get(
             `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/educator/getCourseByEducatorId/${userInfo.sub}`,
             {
@@ -50,6 +51,7 @@ const educatorProfile = () => {
           setEmail(userInfo.email);
           setUsername(userInfo.username);
           setAccessToken(userInfo.accessToken);
+          setSchool(userInfo.school);
         } catch (err) {
           toast.error('Error parsing user info');
         }
@@ -67,6 +69,7 @@ const educatorProfile = () => {
         {
           email,
           username,
+          school,
         },
         {
           headers: { Authorization: `Bearer ${accessToken}` },
@@ -77,6 +80,7 @@ const educatorProfile = () => {
           ...JSON.parse(Cookies.get('educator')),
           email,
           username,
+          school
         };
         Cookies.set('educator', JSON.stringify(updatedUserInfo));
         toast.success('Profile updated');
@@ -124,6 +128,15 @@ const educatorProfile = () => {
             className="address-form-height"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
+          />
+        </Form.Group>
+        <Form.Group className="mb-4" controlId="school">
+          <Form.Control
+            type="school"
+            placeholder="Enter the school you attend"
+            className="address-form-height"
+            value={school}
+            onChange={(e) => setSchool(e.target.value)}
           />
         </Form.Group>
         <Button type="submit" className="mb-4 w-100 auth-btns" size="lg">

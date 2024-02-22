@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Baloo+Tamma&display=swap');
 :root {
   --max-width: 1100px;
   --border-radius: 12px;
@@ -85,8 +86,18 @@ body {
   overflow-x: hidden;
 }
 
+.lesson-font {
+  font-family: 'Baloo Tamma', cursive;
+}
+
 html {
   scroll-behavior: smooth;
+}
+.link {
+  text-decoration: none;
+  color: inherit;
+  padding: 0;
+  margin: 0;
 }
 
 .pointer {
@@ -202,6 +213,12 @@ ul {
   text-align: center;
 }
 
+.disabled {
+  background-color: #cccccc;
+  color: #666666;
+  cursor: not-allowed;
+}
+
 .card-header-color {
   background-color: #fed350;
   border-top-right-radius: 5px;
@@ -218,8 +235,6 @@ ul {
 }
 
 /* CONTACT */
-
-
 
 .contact__options {
   display: flex;
@@ -271,7 +286,7 @@ ul {
   color: var(--color-white);
 }
 
-.address-textarea-height{
+.address-textarea-height {
   height: 125px;
 }
 
@@ -314,18 +329,14 @@ ul {
   border-bottom: 2px solid black;
 }
 
-/* ================ MEDIA QUERIES (MEDIUM DEVICES) ================= */
-@media screen and (max-width: 1165px) {
-  .container.contact__container {
-    grid-template-columns: 1fr;
-    gap: 2rem;
-  }
+.contact__container {
+  width: 50% !important ;
 }
 
 /* ================ MEDIA QUERIES (SMALL DEVICES) ================= */
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 960px) {
   .container.contact__container {
-    width: var(--container-width-sm);
+    width: 100% !important ;
   }
 }
 /* -------- */
@@ -382,7 +393,7 @@ ul {
     text-align: center;
   }
 
-  .lesson-box{
+  .lesson-box {
     padding: 0 !important;
   }
 }

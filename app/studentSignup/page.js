@@ -10,6 +10,17 @@ import { getError } from '../utils';
 const signup = () => {
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
+
+  const [studentFirstname, setStudentFirstname] = useState('');
+  const [studentLastname, setStudentLastname] = useState('');
+  const [parentFirstname, setParentFirstname] = useState('');
+  const [parentLastname, setParentLastname] = useState('');
+  const [parentPhoneNumber, setParentPhoneNumber] = useState('');
+  const [parentEmailAddress, setParentEmailAddress] = useState('');
+  const [school, setSchool] = useState('');
+  const [grade, setGrade] = useState('');
+  const [age, setAge] = useState('');
+
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [signupSuccess, setSignupSuccess] = useState('');
@@ -28,6 +39,16 @@ const signup = () => {
 
   const upperCaseArrResult = filterUpper(upperCaseArr);
   const lowerCaseArrResult = filterLower(lowerCaseArr);
+
+  const handlePhoneNumber = (e) => {
+    const inputValue = e.target.value.replace(/\D/g, ''); // Remove non-numeric characters
+    setParentPhoneNumber(inputValue.slice(0, 10)); // Limit input to 10 characters
+  };
+
+  const handleAge = (e) => {
+    const inputValue = e.target.value.replace(/\D/g, ''); // Remove non-numeric characters
+    setAge(inputValue.slice(0, 2)); // Limit input to 2 characters
+  };
 
   const [numVerification, setNumVerification] = useState('');
   const [findSpecialCharacters, setFindSpecialCharacters] = useState('');
@@ -85,11 +106,24 @@ const signup = () => {
       return;
     }
     try {
-      const { data } = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth/user/signup`, {
-        email,
-        username,
-        password,
-      });
+      const { data } = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth/user/signup`,
+        {
+          email,
+          username,
+          password,
+          studentFirstname,
+          studentLastname,
+          parentFirstname,
+          parentLastname,
+          parentPhoneNumber,
+          parentEmailAddress,
+          school,
+          grade,
+          age,
+        }
+      );
+
       if (data) {
         toast.success('Verify your email to login.');
       }
@@ -111,7 +145,7 @@ const signup = () => {
             <Form.Group className="mb-4" controlId="email">
               <Form.Control
                 type="email"
-                placeholder="Enter your email"
+                placeholder="Enter the students email"
                 className="address-form-height"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -121,10 +155,109 @@ const signup = () => {
             <Form.Group className="mb-4" controlId="username">
               <Form.Control
                 type="username"
-                placeholder="Enter your username"
+                placeholder="Enter the students username"
                 className="address-form-height"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
+              />
+            </Form.Group>
+
+            <Form.Group className="mb-4" controlId="studentFirstname">
+              <Form.Control
+                type="username"
+                placeholder="Enter the students firstname"
+                className="address-form-height"
+                value={studentFirstname}
+                onChange={(e) => setStudentFirstname(e.target.value)}
+              />
+            </Form.Group>
+
+            <Form.Group className="mb-4" controlId="studentLastname">
+              <Form.Control
+                type="username"
+                placeholder="Enter the students lastname"
+                className="address-form-height"
+                value={studentLastname}
+                onChange={(e) => setStudentLastname(e.target.value)}
+              />
+            </Form.Group>
+
+            <Form.Group className="mb-4" controlId="parentFirstname">
+              <Form.Control
+                type="username"
+                placeholder="Enter the parents firstname"
+                className="address-form-height"
+                value={parentFirstname}
+                onChange={(e) => setParentFirstname(e.target.value)}
+              />
+            </Form.Group>
+
+            <Form.Group className="mb-4" controlId="parentLastname">
+              <Form.Control
+                type="username"
+                placeholder="Enter the parents lastname"
+                className="address-form-height"
+                value={parentLastname}
+                onChange={(e) => setParentLastname(e.target.value)}
+              />
+            </Form.Group>
+
+            <Form.Group className="mb-4" controlId="parentPhoneNumber">
+              <Form.Control
+                type="phoneNumber"
+                placeholder="Enter the parents phone number"
+                className="address-form-height"
+                value={parentPhoneNumber}
+                onChange={handlePhoneNumber}
+              />
+            </Form.Group>
+
+            <Form.Group className="mb-4" controlId="parentEmailAddress">
+              <Form.Control
+                type="email"
+                placeholder="Enter the parents email address"
+                className="address-form-height"
+                value={parentEmailAddress}
+                onChange={(e) => setParentEmailAddress(e.target.value)}
+              />
+            </Form.Group>
+
+            <Form.Group className="mb-4" controlId="school">
+              <Form.Control
+                type="school"
+                placeholder="Enter the school you attend"
+                className="address-form-height"
+                value={school}
+                onChange={(e) => setSchool(e.target.value)}
+              />
+            </Form.Group>
+
+            <Form.Group className="mb-4" controlId="grade">
+              <Form.Select
+                value={grade}
+                onChange={(e) => {
+                  setGrade(e.target.value);
+                }}
+              >
+                <option>Select your grade</option>
+                <option value="Ninth-grader">Ninth-grader</option>
+                <option value="Tenth-grader">Tenth-grader</option>
+                <option value="Eleventh-grader">Eleventh-grader</option>
+                <option value="Twelfth-grader">Twelfth-grader</option>
+                <option value="First-year">First-year student</option>
+                <option value="Second-year">Second-year student</option>
+                <option value="Third-year">Third-year student</option>
+                <option value="Fourth-year">Fourth-year student</option>
+              </Form.Select>
+            </Form.Group>
+
+            <Form.Group className="mb-4" controlId="age">
+              <Form.Control
+                type="age"
+                placeholder="Enter your age"
+                className="address-form-height"
+                value={age}
+                onChange={handleAge}
               />
             </Form.Group>
 

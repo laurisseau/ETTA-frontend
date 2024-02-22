@@ -1,5 +1,5 @@
 'use client';
-import { Card, Row, Col } from 'react-bootstrap';
+import { Card, Row, Col, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleCheck } from '@fortawesome/free-regular-svg-icons';
 import { Context } from '../app/Provider';
@@ -14,6 +14,10 @@ const PricingCard = ({ title, price, description, features, height }) => {
 
   const createClass = async () => {
     try {
+      if (userInfo.role != 'EDUCATOR') {
+        return toast.error('You have to be an educator to create a class.');
+      }
+
       const { data } = await axios.post(
         `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/educator/createCourse`,
         {
@@ -30,7 +34,7 @@ const PricingCard = ({ title, price, description, features, height }) => {
         window.location.href = '/educatorCourse';
       }
     } catch (err) {
-      toast.error(getError(err))
+      toast.error(getError(err));
     }
   };
 
@@ -81,9 +85,13 @@ const PricingCard = ({ title, price, description, features, height }) => {
           className="text-center w-100"
           style={{ marginTop: 'auto', marginBottom: '23px' }}
         >
-          <button onClick={createClass} className="course-button">
-            Create Class
-          </button>
+          {title == 'Basic' ? (
+            <button onClick={createClass} className="course-button">
+              Create Class
+            </button>
+          ) : (
+            <button className="disabled course-button">Create Class</button>
+          )}
         </div>
       </Card>
     </>

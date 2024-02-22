@@ -7,16 +7,16 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import Footer from '@/components/Footer';
 import Contact from '@/components/Contact';
+import Link from 'next/link';
 
 export default function Home() {
   const initialEditorValue = 'word = "hello world"\n\nprint(word)';
   const [editorValue, setEditorValue] = useState(initialEditorValue);
   const [outputValue, setOutputValue] = useState('hello world');
-  
+
   const handleEditorChange = (value, event) => {
     setEditorValue(value);
   };
-
 
   const handleCode = async () => {
     try {
@@ -54,7 +54,11 @@ export default function Home() {
                 cost-effective programs. Start their educational journey with
                 us.
               </p>
-              <button className="home-button">See Prices</button>
+              <button className="home-button">
+                <Link className="link" href="/pricing">
+                  See Prices
+                </Link>{' '}
+              </button>
             </div>
           </div>
 

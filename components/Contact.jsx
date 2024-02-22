@@ -12,14 +12,6 @@ const Contact = () => {
   const sendEmail = async (e) => {
     try {
       e.preventDefault();
-      /*
-      emailjs.sendForm(
-        'service_rtugql8',
-        'template_5jw9u4k',
-        form.current,
-        'NiaXoFFBYSoYQ4e4z'
-      );
-      */
 
       emailjs.sendForm(
         'service_angte9b', // service id
@@ -40,7 +32,7 @@ const Contact = () => {
       <h5 className="text-center pt-3">Get In Touch</h5>
       <h2 className="text-center pb-3">Contact Us</h2>
 
-      <div className="container contact__container w-50">
+      <div className="container contact__container">
         <div className="contact__options ">
           <article className="contact__option mb-4">
             <FontAwesomeIcon style={{ fontSize: '40px' }} icon={faEnvelope} />

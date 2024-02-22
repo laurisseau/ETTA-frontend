@@ -15,10 +15,8 @@ const isCookieExpired = (userCookie) => {
           const currentIsoTimestamp = currentDate.toISOString();
 
           if (expirationDate <= currentIsoTimestamp) {
-            console.log('Cookie has expired');
             setModalShow(true);
           } else {
-            console.log('Cookie is still valid');
             setModalShow(false);
           }
         } catch (error) {

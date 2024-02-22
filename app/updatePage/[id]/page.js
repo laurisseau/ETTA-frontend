@@ -13,6 +13,7 @@ import { correctManicoLanguage, getError } from '@/app/utils';
 const updatePage = ({ params }) => {
   const [pageNum, setPageNum] = useState(0);
   const [header, setHeader] = useState('');
+  const [subHeader, setSubHeader] = useState('');
   const [lessonInfo, setLessonInfo] = useState('');
   const [task, setTask] = useState('');
   const [editorLanguage, setEditorLanguage] = useState('');
@@ -28,7 +29,6 @@ const updatePage = ({ params }) => {
 
   useEffect(() => {
     const userInfoString = Cookies.get('admin');
-    
 
     const getPageData = async () => {
       try {
@@ -45,6 +45,7 @@ const updatePage = ({ params }) => {
           if (data) {
             setPageNum(data.pageNum);
             setHeader(data.header);
+            setSubHeader(data.subHeader);
             setLessonInfo(data.lessonInfo);
             setTask(data.task);
             setEditorValue(data.editorValue);
@@ -69,6 +70,7 @@ const updatePage = ({ params }) => {
         {
           pageNum,
           header,
+          subHeader,
           lessonInfo,
           lessonId,
           task,
@@ -143,6 +145,15 @@ const updatePage = ({ params }) => {
                   className="address-form-height"
                   value={header}
                   onChange={(e) => setHeader(e.target.value)}
+                />
+              </Form.Group>
+
+              <Form.Group className="mb-4" controlId="subHeader">
+                <Form.Control
+                  placeholder="Enter the subheader for this page"
+                  className="address-form-height"
+                  value={subHeader}
+                  onChange={(e) => setSubHeader(e.target.value)}
                 />
               </Form.Group>
 

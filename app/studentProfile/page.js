@@ -12,6 +12,25 @@ const studentProfile = () => {
   const [accessToken, setAccessToken] = useState('');
   const [userId, setUserId] = useState('');
   const [enrolled, setEnrolled] = useState(null);
+  const [studentFirstname, setStudentFirstname] = useState('');
+  const [studentLastname, setStudentLastname] = useState('');
+  const [parentFirstname, setParentFirstname] = useState('');
+  const [parentLastname, setParentLastname] = useState('');
+  const [parentPhoneNumber, setParentPhoneNumber] = useState('');
+  const [parentEmailAddress, setParentEmailAddress] = useState('');
+  const [school, setSchool] = useState('');
+  const [grade, setGrade] = useState('');
+  const [age, setAge] = useState('');
+
+  const handlePhoneNumber = (e) => {
+    const inputValue = e.target.value.replace(/\D/g, ''); // Remove non-numeric characters
+    setParentPhoneNumber(inputValue.slice(0, 10)); // Limit input to 10 characters
+  };
+
+  const handleAge = (e) => {
+    const inputValue = e.target.value.replace(/\D/g, ''); // Remove non-numeric characters
+    setAge(inputValue.slice(0, 2)); // Limit input to 2 characters
+  };
 
   useEffect(() => {
     const userInfoString = Cookies.get('user');
@@ -22,10 +41,20 @@ const studentProfile = () => {
       if (userInfoString) {
         try {
           const userInfo = JSON.parse(userInfoString);
+          console.log(userInfo);
           setEmail(userInfo.email);
           setUsername(userInfo.username);
           setAccessToken(userInfo.accessToken);
           setUserId(userInfo.sub);
+          setStudentFirstname(userInfo.studentFirstname);
+          setStudentLastname(userInfo.studentLastname);
+          setParentFirstname(userInfo.parentFirstname);
+          setParentLastname(userInfo.parentLastname);
+          setParentPhoneNumber(userInfo.parentPhoneNumber);
+          setParentEmailAddress(userInfo.parentEmailAddress);
+          setSchool(userInfo.school);
+          setGrade(userInfo.grade);
+          setAge(userInfo.age);
         } catch (err) {
           toast.error('Error parsing user info');
         }
@@ -55,7 +84,7 @@ const studentProfile = () => {
 
     isEnrolled();
     getUserInfo();
-  }, [enrolled]);
+  }, []);
 
   const updateProfile = async (e) => {
     e.preventDefault();
@@ -65,6 +94,15 @@ const studentProfile = () => {
         {
           email,
           username,
+          studentFirstname,
+          studentLastname,
+          parentFirstname,
+          parentLastname,
+          parentPhoneNumber,
+          parentEmailAddress,
+          school,
+          grade,
+          age,
         },
         {
           headers: { Authorization: `Bearer ${accessToken}` },
@@ -75,6 +113,15 @@ const studentProfile = () => {
           ...JSON.parse(Cookies.get('user')),
           email,
           username,
+          studentFirstname,
+          studentLastname,
+          parentFirstname,
+          parentLastname,
+          parentPhoneNumber,
+          parentEmailAddress,
+          school,
+          grade,
+          age,
         };
         Cookies.set('user', JSON.stringify(updatedUserInfo));
         toast.success('Profile updated');
@@ -102,10 +149,7 @@ const studentProfile = () => {
   };
 
   return (
-    <div
-      className="d-flex align-items-center justify-content-center"
-      style={{ height: '100vh' }}
-    >
+    <div className="d-flex align-items-center justify-content-center mt-5">
       <Form style={{ width: '350px' }} onSubmit={updateProfile}>
         <h1 className="mb-4">Student Profile</h1>
         <Form.Group className="mb-4" controlId="email">
@@ -124,6 +168,106 @@ const studentProfile = () => {
             onChange={(e) => setUsername(e.target.value)}
           />
         </Form.Group>
+
+        <Form.Group className="mb-4" controlId="studentFirstname">
+          <Form.Control
+            type="username"
+            placeholder="Enter the students firstname"
+            className="address-form-height"
+            value={studentFirstname}
+            onChange={(e) => setStudentFirstname(e.target.value)}
+          />
+        </Form.Group>
+
+        <Form.Group className="mb-4" controlId="studentLastname">
+          <Form.Control
+            type="username"
+            placeholder="Enter the students lastname"
+            className="address-form-height"
+            value={studentLastname}
+            onChange={(e) => setStudentLastname(e.target.value)}
+          />
+        </Form.Group>
+
+        <Form.Group className="mb-4" controlId="parentFirstname">
+          <Form.Control
+            type="username"
+            placeholder="Enter the parents firstname"
+            className="address-form-height"
+            value={parentFirstname}
+            onChange={(e) => setParentFirstname(e.target.value)}
+          />
+        </Form.Group>
+
+        <Form.Group className="mb-4" controlId="parentLastname">
+          <Form.Control
+            type="username"
+            placeholder="Enter the parents lastname"
+            className="address-form-height"
+            value={parentLastname}
+            onChange={(e) => setParentLastname(e.target.value)}
+          />
+        </Form.Group>
+
+        <Form.Group className="mb-4" controlId="parentPhoneNumber">
+          <Form.Control
+            type="phoneNumber"
+            placeholder="Enter the parents phone number"
+            className="address-form-height"
+            value={parentPhoneNumber}
+            onChange={handlePhoneNumber}
+          />
+        </Form.Group>
+
+        <Form.Group className="mb-4" controlId="parentEmailAddress">
+          <Form.Control
+            type="email"
+            placeholder="Enter the parents email address"
+            className="address-form-height"
+            value={parentEmailAddress}
+            onChange={(e) => setParentEmailAddress(e.target.value)}
+          />
+        </Form.Group>
+
+        <Form.Group className="mb-4" controlId="school">
+          <Form.Control
+            type="school"
+            placeholder="Enter the school you attend"
+            className="address-form-height"
+            value={school}
+            onChange={(e) => setSchool(e.target.value)}
+          />
+        </Form.Group>
+
+        <Form.Group className="mb-4" controlId="grade">
+          <Form.Select
+            value={grade}
+            onChange={(e) => {
+              setGrade(e.target.value);
+            }}
+          >
+            <option>Select your grade</option>
+            <option value="Ninth-grader">Ninth-grader</option>
+            <option value="Tenth-grader">Tenth-grader</option>
+            <option value="Eleventh-grader">Eleventh-grader</option>
+            <option value="Twelfth-grader">Twelfth-grader</option>
+            <option value="First-year">First-year student</option>
+            <option value="Second-year">Second-year student</option>
+            <option value="Third-year">Third-year student</option>
+            <option value="Fourth-year">Fourth-year student</option>
+          </Form.Select>
+        </Form.Group>
+
+        <Form.Group className="mb-4" controlId="age">
+          <Form.Control
+            type="age"
+            placeholder="Enter your age"
+            className="address-form-height"
+            value={age}
+            onChange={handleAge}
+          />
+        </Form.Group>
+
         <Button type="submit" className="mb-4 w-100 auth-btns" size="lg">
           Update profile
         </Button>

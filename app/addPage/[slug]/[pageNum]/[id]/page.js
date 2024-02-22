@@ -10,10 +10,11 @@ import { toast } from 'react-toastify';
 import { Context } from '@/app/Provider';
 import { correctManicoLanguage } from '@/app/utils';
 import { getError } from '@/app/utils';
-//
+
 const addPage = ({ params }) => {
-  const [pageNum, setPageNum] = useState(params.pageNum)
+  const [pageNum, setPageNum] = useState(params.pageNum);
   const [header, setHeader] = useState('');
+  const [subHeader, setSubHeader] = useState('');
   const [lessonInfo, setLessonInfo] = useState('');
   const [task, setTask] = useState('');
   const [editorValue, setEditorValue] = useState('');
@@ -39,7 +40,7 @@ const addPage = ({ params }) => {
             setLoading(false);
           }
         } catch (err) {
-          toast.error(getError(err))
+          toast.error(getError(err));
         }
       }
     };
@@ -60,6 +61,7 @@ const addPage = ({ params }) => {
         {
           pageNum,
           header,
+          subHeader,
           lessonInfo,
           task,
           editorLanguage: slug,
@@ -116,6 +118,15 @@ const addPage = ({ params }) => {
                   className="address-form-height"
                   value={header}
                   onChange={(e) => setHeader(e.target.value)}
+                />
+              </Form.Group>
+
+              <Form.Group className="mb-4" controlId="subHeader">
+                <Form.Control
+                  placeholder="Enter the subheader for this page"
+                  className="address-form-height"
+                  value={subHeader}
+                  onChange={(e) => setSubHeader(e.target.value)}
                 />
               </Form.Group>
 
