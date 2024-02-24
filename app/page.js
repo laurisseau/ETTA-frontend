@@ -2,17 +2,32 @@
 import { Container } from 'react-bootstrap';
 //import dataPoints from '@/public/images/data-points-image.jpg';
 import { Editor } from '@monaco-editor/react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import Footer from '@/components/Footer';
 import Contact from '@/components/Contact';
 import Link from 'next/link';
+import Cookies from 'js-cookie';
 
 export default function Home() {
   const initialEditorValue = 'word = "hello world"\n\nprint(word)';
   const [editorValue, setEditorValue] = useState(initialEditorValue);
   const [outputValue, setOutputValue] = useState('hello world');
+
+  useEffect(() => {
+    const userInfoString = Cookies.get('user');
+    const educatorInfoString = Cookies.get('educator');
+
+    const getUserInfo = () => {
+      if (!userInfoString || !educatorInfoString) {
+        window.location.href = '/adminDashboard';
+      }
+    };
+
+    getUserInfo();
+  }, []);
+  
 
   const handleEditorChange = (value, event) => {
     setEditorValue(value);
