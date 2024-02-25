@@ -16,11 +16,10 @@ export default function Home() {
   const [outputValue, setOutputValue] = useState('hello world');
 
   useEffect(() => {
-    const userInfoString = Cookies.get('user');
-    const educatorInfoString = Cookies.get('educator');
+    const adminInfoString = Cookies.get('admin');
 
     const getUserInfo = () => {
-      if (!userInfoString || !educatorInfoString) {
+      if (adminInfoString) {
         window.location.href = '/adminDashboard';
       }
     };
