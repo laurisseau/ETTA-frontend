@@ -62,6 +62,9 @@ const NavComp = () => {
                 </Offcanvas.Header>
                 <Offcanvas.Body>
                   <Nav className="align-items-center me-auto">
+                    <Nav.Link className="nav-link" href="/aboutUs">
+                      About Us
+                    </Nav.Link>
                     <Nav.Link
                       className="nav-link"
                       href={
