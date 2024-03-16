@@ -3,12 +3,12 @@ import Footer from '@/components/Footer';
 
 export default function AboutUs() {
   const imgArr = [
-    { id: 1, img: '/images/image1.png', role: 'Intern' },
-    { id: 7, img: '/images/image7.jpeg', role: 'Intern' },
-    { id: 3, img: '/images/image3.png', role: 'Intern' },
-    { id: 4, img: '/images/image4.png', role: 'Intern' },
-    { id: 6, img: '/images/image6.png', role: 'Founder/CEO' },
+    { id: 1, img: '/images/image6.png', role: 'Founder/CEO' },
     { id: 2, img: '/images/image2.png', role: 'CTO' },
+    { id: 3, img: '/images/image1.png', role: 'Intern' },
+    { id: 4, img: '/images/image7.jpeg', role: 'Intern' },
+    { id: 5, img: '/images/image3.png', role: 'Intern' },
+    { id: 6, img: '/images/image4.png', role: 'Intern' },
   ];
 
   return (
@@ -19,7 +19,9 @@ export default function AboutUs() {
             About Us
           </h1>
 
-          <h3 className="mt-4 hacker-font">Empowering Tomorrow's Innovators Today</h3>
+          <h3 className="mt-4 hacker-font">
+            Empowering Tomorrow's Innovators Today
+          </h3>
           <div className="mt-4">
             <p>
               Early Transition in Tech Association 501(c)(3) Nonprofit -
